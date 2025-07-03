@@ -85,7 +85,8 @@ def getSensorData():
 
 # Load model
 model = Model.Model('BoardCode\\SumoAgent.onnx')
-
+whitelineCounterLeft = 0;
+whitelineCounterRight = 0;
 sensorData = []
 while True:
     if(wiringpi.digitalRead(startbutton) != 1): ##NEeed to calibrate
@@ -96,8 +97,33 @@ while True:
     ##For just RNG that bitch
     # sensorData = GenerateRandomInput(6)
     sensorData = getSensorData();
-  
+
     print(f'Sensor Data: {sensorData}')
+
+
+    ##Whiteline check
+    if(sensorData[4] == 1 or sensorData[5] == 1 or whitelineCounterLeft > 0 or whitelineCounterRight > 0):
+        print("Whiteline detected, turning around...")
+        if sensorData[4] == 1 or sensorData[5] == 1:
+            if sensorData[4] == 1:
+                whitelineCounterLeft = 10 ##TODO: CALIBRATE
+            if sensorData[5] == 1:
+                whitelineCounterRight = 10##TODO: CALIBRATE
+        else:
+            whitelineCounterLeft = max(0, whitelineCounterLeft - 1)
+            whitelineCounterRight = max(0, whitelineCounterRight - 1)
+        # Turn around logic
+        if(whitelineCounterLeft > 0):
+            wiringpi.digitalWrite(leftMotor, 0)  # Stop left motor
+            wiringpi.digitalWrite(rightMotor, 1)  # Turn right ##TODO: CALIBRATE
+            print("Turning right due to left white line detection")
+        elif(whitelineCounterRight > 0):
+            wiringpi.digitalWrite(leftMotor, 1) ##TODO: CALIBRATE
+            wiringpi.digitalWrite(rightMotor, 0)  # Turn left 
+            print("Turning left due to right white line detection")
+        continue
+
+ 
 
 
     predictions = model.run(sensorData)
