@@ -28,14 +28,14 @@ sys.stdout = LoggerWriter(logging.info)
 print("Starting Sumo Robot Controller...")
 
 #ports
-leftIR = 1
-rightIR = 3
-frontleftIR = 4
-frontrightIR = 5
-colorLeft = 6
-colorRight = 7
+leftIR = 263
+rightIR = 264
+frontleftIR = 258
+frontrightIR = 262
+colorLeft = 39
+colorRight = 40
 
-startbutton = 8
+startbutton = 266
 
 leftMotor = 17
 rightMotor = 18
