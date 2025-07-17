@@ -53,18 +53,18 @@ debugMode = True
 # p_frontleft = 0
 # p_frontright = 0
 
-wiringpi.wiringPiSetupGpio()  # For GPIO pin numbering
+# wiringpi.wiringPiSetupGpio()  # For GPIO pin numbering
 
-wiringpi.pinMode(leftIR, 0)       # Set pin 6 to 0 ( INPUT )
-wiringpi.pinMode(rightIR, 0)       # Set pin 6 to 0 ( INPUT )
-wiringpi.pinMode(colorLeft, 0)       # Set pin 6 to 0 ( INPUT )
-wiringpi.pinMode(colorRight, 0)       # Set pin 6 to 0 ( INPUT )
-wiringpi.pinMode(frontleftIR, 0)
-wiringpi.pinMode(frontrightIR, 0)
-wiringpi.pinMode(startbutton, 0)  # Set pin 8 to 0 ( INPUT )
+# wiringpi.pinMode(leftIR, 0)       # Set pin 6 to 0 ( INPUT )
+# wiringpi.pinMode(rightIR, 0)       # Set pin 6 to 0 ( INPUT )
+# wiringpi.pinMode(colorLeft, 0)       # Set pin 6 to 0 ( INPUT )
+# wiringpi.pinMode(colorRight, 0)       # Set pin 6 to 0 ( INPUT )
+# wiringpi.pinMode(frontleftIR, 0)
+# wiringpi.pinMode(frontrightIR, 0)
+# wiringpi.pinMode(startbutton, 0)  # Set pin 8 to 0 ( INPUT )
 
-wiringpi.pinMode(leftMotor, 1)     # Set pin 17 to 1 ( OUTPUT )
-wiringpi.pinMode(rightMotor, 1)    # Set pin 18 to 1 ( OUTPUT )
+# wiringpi.pinMode(leftMotor, 1)     # Set pin 17 to 1 ( OUTPUT )
+# wiringpi.pinMode(rightMotor, 1)    # Set pin 18 to 1 ( OUTPUT )
 
 def GenerateRandomInput(rows):
     import random
