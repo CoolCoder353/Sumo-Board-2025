@@ -1,6 +1,5 @@
-import wiringpi
+import OPi.GPIO as GPIO
 import time
-import threading
 import sys
 import select
 import termios
@@ -12,13 +11,13 @@ class GPIOReader:
         self.running = False
         self.old_settings = termios.tcgetattr(sys.stdin)
         
-        # Setup wiringpi once
-        wiringpi.wiringPiSetupGpio()
+        # Setup GPIO mode
+        GPIO.setmode(GPIO.BOARD)  # or GPIO.BCM
         
     def setup_gpio_pin(self, gpio_pin):
         """Setup a specific GPIO pin for reading"""
         self.gpio_pin = gpio_pin
-        wiringpi.pinMode(self.gpio_pin, 0)  # Set as INPUT
+        GPIO.setup(self.gpio_pin, GPIO.IN)  # Set as INPUT
         
     def setup_terminal(self):
         """Setup terminal for non-blocking input"""
@@ -53,7 +52,7 @@ class GPIOReader:
             
             while self.running:
                 # Read GPIO pin
-                gpio_value = wiringpi.digitalRead(self.gpio_pin)
+                gpio_value = GPIO.input(self.gpio_pin)
                 timestamp = time.strftime("%H:%M:%S")
                 
                 print(f"[{timestamp}] GPIO Pin {self.gpio_pin}: {gpio_value}")
@@ -70,77 +69,8 @@ class GPIOReader:
         finally:
             self.restore_terminal()
             
-    def get_user_choice(self):
-        """Get user input for new GPIO pin or exit"""
-        while True:
-            try:
-                choice = input("\nOptions:\n1. Enter new GPIO pin number\n2. Exit program\nChoice (1/2): ").strip()
-                
-                if choice == '1':
-                    gpio_input = input("Enter GPIO pin number: ").strip()
-                    try:
-                        gpio_pin = int(gpio_input)
-                        if gpio_pin < 0:
-                            print("GPIO pin must be a positive number.")
-                            continue
-                        return gpio_pin
-                    except ValueError:
-                        print("Please enter a valid number.")
-                        continue
-                        
-                elif choice == '2':
-                    return None  # Signal to exit
-                    
-                else:
-                    print("Please enter 1 or 2.")
-                    continue
-                    
-            except KeyboardInterrupt:
-                print("\nExiting...")
-                return None
+    def cleanup(self):
+        """Clean up GPIO resources"""
+        GPIO.cleanup()
 
-def main():
-    reader = GPIOReader()
-    
-    print("GPIO Pin Monitor")
-    print("================")
-    
-    # Get initial GPIO pin
-    try:
-        initial_pin = input("Enter initial GPIO pin number to monitor: ").strip()
-        gpio_pin = int(initial_pin)
-        if gpio_pin < 0:
-            print("GPIO pin must be a positive number.")
-            return
-    except ValueError:
-        print("Please enter a valid number.")
-        return
-    except KeyboardInterrupt:
-        print("\nExiting...")
-        return
-    
-    try:
-        while True:
-            # Setup the GPIO pin
-            reader.setup_gpio_pin(gpio_pin)
-            reader.running = True
-            
-            # Start monitoring
-            reader.read_gpio_loop()
-            
-            # When monitoring stops, get user choice
-            choice = reader.get_user_choice()
-            
-            if choice is None:  # User wants to exit
-                print("Goodbye!")
-                break
-            else:  # User wants to monitor new pin
-                gpio_pin = choice
-                print(f"\nSwitching to GPIO pin {gpio_pin}...")
-                
-    except Exception as e:
-        print(f"Error: {e}")
-        print("Make sure you're running with appropriate permissions (sudo)")
-
-if __name__ == "__main__":
-    main()
+# Install with: pip install OrangePi.GPIO
