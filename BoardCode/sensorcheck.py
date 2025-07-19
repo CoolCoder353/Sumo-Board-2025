@@ -15,7 +15,7 @@ class GPIOMonitor:
     def setup_gpio(self, pin):
         """Setup GPIO pin for input"""
         GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(pin, GPIO.IN)
     
     def cleanup_gpio(self):
         """Cleanup GPIO resources"""
@@ -90,7 +90,7 @@ def main():
             if pin_input.lower() == 'exit':
                 break
                 
-            pin = int(pin_input)
+            pin = pin_input
             print(f"\nStarting monitor for GPIO pin {pin}...")
             monitor.start_monitoring(pin)
             print(f"\nStopped monitoring pin {pin}")
