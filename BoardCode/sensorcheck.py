@@ -14,20 +14,12 @@ class GPIOMonitor:
         
     def setup_gpio(self, pin):
         """Setup GPIO pin for input"""
-        try:
-            GPIO.setmode(GPIO.BOARD)
-            GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-            return True
-        except Exception as e:
-            print(f"Error setting up GPIO pin {pin}: {e}")
-            return False
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     
     def cleanup_gpio(self):
         """Cleanup GPIO resources"""
-        try:
-            GPIO.cleanup()
-        except:
-            pass
+        GPIO.cleanup()
     
     def monitor_pin(self, pin):
         """Monitor GPIO pin and print status every second"""
@@ -36,15 +28,11 @@ class GPIOMonitor:
         print("-" * 30)
         
         while self.running:
-            try:
-                pin_state = GPIO.input(pin)
-                timestamp = time.strftime("%H:%M:%S")
-                status = "HIGH" if pin_state else "LOW"
-                print(f"[{timestamp}] Pin {pin}: {status}")
-                time.sleep(1)
-            except Exception as e:
-                print(f"Error reading pin {pin}: {e}")
-                break
+            pin_state = GPIO.input(pin)
+            timestamp = time.strftime("%H:%M:%S")
+            status = "HIGH" if pin_state else "LOW"
+            print(f"[{timestamp}] Pin {pin}: {status}")
+            time.sleep(1)
     
     def get_char(self):
         """Get single character input without pressing Enter"""
@@ -64,9 +52,7 @@ class GPIOMonitor:
     
     def start_monitoring(self, pin):
         """Start monitoring a GPIO pin"""
-        if not self.setup_gpio(pin):
-            return False
-            
+        self.setup_gpio(pin)
         self.current_pin = pin
         self.running = True
         
@@ -82,7 +68,6 @@ class GPIOMonitor:
         
         # Wait for monitoring to stop
         self.monitor_thread.join()
-        return True
     
     def stop_monitoring(self):
         """Stop current monitoring"""
@@ -91,67 +76,30 @@ class GPIOMonitor:
             self.monitor_thread.join()
         self.cleanup_gpio()
 
-def get_pin_number():
-    """Get GPIO pin number from user"""
-    while True:
-        try:
-            pin_input = input("\nEnter GPIO pin number (or 'exit' to quit): ").strip()
-            if pin_input.lower() == 'exit':
-                return None
-            pin = int(pin_input)
-            if pin <= 0:
-                print("Please enter a positive pin number.")
-                continue
-            return pin
-        except ValueError:
-            print("Please enter a valid number or 'exit'.")
-        except KeyboardInterrupt:
-            return None
-
 def main():
     """Main program loop"""
     monitor = GPIOMonitor()
     
     print("GPIO Pin Monitor")
     print("================")
-    print("This program monitors GPIO pin states every second.")
     print("Press 's' during monitoring to stop and change pins.")
     
-    try:
-        while True:
-            pin = get_pin_number()
-            if pin is None:
-                break
-                
-            print(f"\nStarting monitor for GPIO pin {pin}...")
-            success = monitor.start_monitoring(pin)
+    while True:
+        pin_input = input("\nEnter GPIO pin number (or 'exit' to quit): ").strip()
+        if pin_input.lower() == 'exit':
+            break
             
-            if not success:
-                print("Failed to start monitoring. Please try a different pin.")
-                continue
-                
-            print(f"\nStopped monitoring pin {pin}")
-            
-            # Ask user what to do next
-            while True:
-                try:
-                    choice = input("\nChoose an option:\n1. Monitor another pin\n2. Exit\nEnter choice (1/2): ").strip()
-                    if choice == '1':
-                        break
-                    elif choice == '2':
-                        print("Exiting...")
-                        return
-                    else:
-                        print("Please enter 1 or 2.")
-                except KeyboardInterrupt:
-                    print("\nExiting...")
-                    return
+        pin = int(pin_input)
+        print(f"\nStarting monitor for GPIO pin {pin}...")
+        monitor.start_monitoring(pin)
+        print(f"\nStopped monitoring pin {pin}")
+        
+        choice = input("\nChoose an option:\n1. Monitor another pin\n2. Exit\nEnter choice (1/2): ").strip()
+        if choice == '2':
+            break
                     
-    except KeyboardInterrupt:
-        print("\nProgram interrupted. Exiting...")
-    finally:
-        monitor.stop_monitoring()
-        print("GPIO cleanup completed.")
+    monitor.stop_monitoring()
+    print("GPIO cleanup completed.")
 
 if __name__ == "__main__":
     main()
