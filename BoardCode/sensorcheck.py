@@ -84,22 +84,25 @@ def main():
     print("================")
     print("Press 's' during monitoring to stop and change pins.")
     
-    while True:
-        pin_input = input("\nEnter GPIO pin number (or 'exit' to quit): ").strip()
-        if pin_input.lower() == 'exit':
-            break
+    try:
+        while True:
+            pin_input = input("\nEnter GPIO pin number (or 'exit' to quit): ").strip()
+            if pin_input.lower() == 'exit':
+                break
+                
+            pin = int(pin_input)
+            print(f"\nStarting monitor for GPIO pin {pin}...")
+            monitor.start_monitoring(pin)
+            print(f"\nStopped monitoring pin {pin}")
             
-        pin = int(pin_input)
-        print(f"\nStarting monitor for GPIO pin {pin}...")
-        monitor.start_monitoring(pin)
-        print(f"\nStopped monitoring pin {pin}")
-        
-        choice = input("\nChoose an option:\n1. Monitor another pin\n2. Exit\nEnter choice (1/2): ").strip()
-        if choice == '2':
-            break
-                    
-    monitor.stop_monitoring()
-    print("GPIO cleanup completed.")
+            choice = input("\nChoose an option:\n1. Monitor another pin\n2. Exit\nEnter choice (1/2): ").strip()
+            if choice == '2':
+                break
+    except KeyboardInterrupt:
+        print("\nProgram interrupted. Exiting...")
+    finally:
+        monitor.stop_monitoring()
+        print("GPIO cleanup completed.")
 
 if __name__ == "__main__":
     main()
