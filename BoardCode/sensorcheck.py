@@ -14,8 +14,7 @@ class GPIOMonitor:
         
     def setup_gpio(self, pin):
         """Setup GPIO pin for input"""
-        GPIO.setboard(GPIO.BOARD)  # Use physical pin numbering
-        GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BCM)
         GPIO.setup(pin, GPIO.IN)
     
     def cleanup_gpio(self):
