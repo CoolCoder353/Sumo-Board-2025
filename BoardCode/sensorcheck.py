@@ -1,4 +1,4 @@
-import OPi.GPIO as GPIO
+import wiringpi
 import time
 import threading
 import sys
@@ -14,12 +14,13 @@ class GPIOMonitor:
         
     def setup_gpio(self, pin):
         """Setup GPIO pin for input"""
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(pin, GPIO.IN)
+        wiringpi.wiringPiSetup()
+        wiringpi.pinMode(pin, wiringpi.INPUT)
+        wiringpi.pullUpDnControl(pin, wiringpi.PUD_UP)
     
     def cleanup_gpio(self):
         """Cleanup GPIO resources"""
-        GPIO.cleanup()
+        pass  # WiringPi doesn't require explicit cleanup
     
     def monitor_pin(self, pin):
         """Monitor GPIO pin and print status every second"""
@@ -28,7 +29,7 @@ class GPIOMonitor:
         print("-" * 30)
         
         while self.running:
-            pin_state = GPIO.input(pin)
+            pin_state = wiringpi.digitalRead(pin)
             timestamp = time.strftime("%H:%M:%S")
             status = "HIGH" if pin_state else "LOW"
             print(f"[{timestamp}] Pin {pin}: {status}")
@@ -90,7 +91,7 @@ def main():
             if pin_input.lower() == 'exit':
                 break
                 
-            pin = pin_input
+            pin = int(pin_input)
             print(f"\nStarting monitor for GPIO pin {pin}...")
             monitor.start_monitoring(pin)
             print(f"\nStopped monitoring pin {pin}")
