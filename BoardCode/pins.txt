@@ -1,0 +1,19 @@
+Board pins
+
+27 m1a
+29 m1b
+
+28 m2a
+26 m2b
+
+37 left color
+38 right color
+
+36 right ir
+35 front right ir
+
+25 (ground) button
+23 button
+
+22 left ir
+21 front left ir
