@@ -17,3 +17,14 @@ Board pins
 
 22 left ir
 21 front left ir
+
+
+POWER MATH:
+
+0.2 X 2 AMPS
+0.015 X 6 AMPS
+5 amps board
+
+
+
+
