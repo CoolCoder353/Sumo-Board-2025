@@ -40,12 +40,12 @@ w.pinMode(m2a, 1)     # Set to OUTPUT
 w.pinMode(m2b, 1)     # Set to OUTPUT
 
 def getSensorData():
-    p_leftIR = w.digitalRead(leftIR)
-    p_rightIR = w.digitalRead(rightIR)
-    p_frontLeftIR = w.digitalRead(frontLeftIR)
-    p_frontRightIR = w.digitalRead(frontRightIR)
-    p_colorLeft = w.digitalRead(colorLeft)
-    p_colorRight = w.digitalRead(colorRight)
+    p_leftIR = not w.digitalRead(leftIR)
+    p_rightIR = not w.digitalRead(rightIR)
+    p_frontLeftIR = not w.digitalRead(frontLeftIR)
+    p_frontRightIR = not w.digitalRead(frontRightIR)
+    p_colorLeft = not w.digitalRead(colorLeft)
+    p_colorRight = not w.digitalRead(colorRight)
     return p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight
 
 def moveForward():
