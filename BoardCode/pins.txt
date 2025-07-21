@@ -19,6 +19,26 @@ Board pins
 21 front left ir
 
 
+WPI
+
+17 m1a
+19 m1b
+
+18 m2a
+16 m2b
+
+25 left color
+26 right color
+
+24 right ir
+23 front right ir
+
+14 button
+
+13 left ir
+12 front left ir
+
+
 POWER MATH:
 
 0.2 X 2 AMPS
