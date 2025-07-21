@@ -54,6 +54,12 @@ def moveForward():
     w.digitalWrite(m2a, 1)
     w.digitalWrite(m2b, 0)
 
+def moveBackward():
+    w.digitalWrite(m1a, 0)
+    w.digitalWrite(m1b, 1)
+    w.digitalWrite(m2a, 0)
+    w.digitalWrite(m2b, 1)
+
 def turnLeft():
     w.digitalWrite(m1a, 0)
     w.digitalWrite(m1b, 1)
