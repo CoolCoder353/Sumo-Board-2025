@@ -1,5 +1,29 @@
 import wiringpi
 import time
+import logging
+import sys
+
+class LoggerWriter:
+    def __init__(self, level):
+        self.level = level
+
+    def write(self, message):
+        if message != '\n':
+            self.level(message)
+
+    def flush(self):
+        pass
+
+# Configure logging
+logging.basicConfig(
+    filename='sensor_log.log',
+    level=logging.INFO,
+    format='%(asctime)s %(message)s',
+    filemode='a'
+)
+
+# Redirect print statements to logging
+sys.stdout = LoggerWriter(logging.info)
 
 # Pin definitions from your table
 m1a = 17
@@ -32,6 +56,9 @@ output_pins = {
     'm2b': m2b
 }
 
+# Store previous sensor states
+previous_states = {}
+
 def setup_gpio():
     """Initialize GPIO pins"""
     wiringpi.wiringPiSetup()
@@ -43,6 +70,10 @@ def setup_gpio():
     # Setup output pins
     for pin in output_pins.values():
         wiringpi.pinMode(pin, wiringpi.OUTPUT)  # OUTPUT
+    
+    # Initialize previous states
+    for name, pin in input_pins.items():
+        previous_states[name] = wiringpi.digitalRead(pin)
 
 def scan_input(pin_name):
     """Read and display input pin state"""
@@ -75,12 +106,39 @@ def scan_all_inputs():
         status = "HIGH" if state else "LOW"
         print(f"{name:15} (GPIO {pin:2}): {status}")
 
+def monitor_changes(duration=None):
+    """Monitor sensor changes and print when they occur"""
+    print(f"Monitoring sensor changes{'...' if duration is None else f' for {duration} seconds...'}")
+    print("Press Ctrl+C to stop monitoring")
+    
+    start_time = time.time()
+    
+    try:
+        while True:
+            if duration and (time.time() - start_time) > duration:
+                break
+                
+            for name, pin in input_pins.items():
+                current_state = wiringpi.digitalRead(pin)
+                
+                if current_state != previous_states[name]:
+                    old_status = "HIGH" if previous_states[name] else "LOW"
+                    new_status = "HIGH" if current_state else "LOW"
+                    print(f"CHANGE: {name} (GPIO {pin}) changed from {old_status} to {new_status}")
+                    previous_states[name] = current_state
+            
+            time.sleep(0.01)  # Small delay to prevent excessive CPU usage
+            
+    except KeyboardInterrupt:
+        print("\nStopped monitoring")
+
 def show_help():
     """Display available commands"""
     print("\nAvailable Commands:")
     print("scan <pin_name>     - Read input pin state")
     print("write <pin_name> <value> - Write to output pin (0 or 1)")
     print("scan_all           - Read all input pins")
+    print("monitor [duration] - Monitor sensor changes (optional duration in seconds)")
     print("list_pins          - Show all available pins")
     print("help               - Show this help message")
     print("exit               - Exit program")
@@ -137,6 +195,18 @@ def main():
             
             elif command[0] == "scan_all":
                 scan_all_inputs()
+            
+            elif command[0] == "monitor":
+                if len(command) == 1:
+                    monitor_changes()
+                elif len(command) == 2:
+                    try:
+                        duration = float(command[1])
+                        monitor_changes(duration)
+                    except ValueError:
+                        print("Duration must be a number")
+                else:
+                    print("Usage: monitor [duration]")
             
             elif command[0] == "list_pins":
                 list_pins()
