@@ -34,7 +34,7 @@ output_pins = {
 
 def setup_gpio():
     """Initialize GPIO pins"""
-    wiringpi.wiringPiSetupGpio()
+    wiringpi.wiringPiSetup()
     
     # Setup input pins
     for pin in input_pins.values():
