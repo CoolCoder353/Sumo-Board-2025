@@ -104,7 +104,7 @@ def main():
     print("Type 'help' for available commands")
     
     while True:
-        try:
+        # try:
             command = input("\n> ").strip().lower().split()
             
             if not command:
@@ -145,11 +145,11 @@ def main():
                 print(f"Unknown command: {command[0]}")
                 print("Type 'help' for available commands")
         
-        except KeyboardInterrupt:
-            print("\nExiting...")
-            break
-        except Exception as e:
-            print(f"Error: {e}")
+        # except KeyboardInterrupt:
+        #     print("\nExiting...")
+        #     break
+        # except Exception as e:
+        #     print(f"Error: {e}")
     
     # Cleanup - turn off all outputs
     for pin in output_pins.values():
