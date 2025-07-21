@@ -38,11 +38,11 @@ def setup_gpio():
     
     # Setup input pins
     for pin in input_pins.values():
-        wiringpi.pinMode(pin, 0)  # INPUT
+        wiringpi.pinMode(pin, wiringpi.INPUT)  # INPUT
     
     # Setup output pins
     for pin in output_pins.values():
-        wiringpi.pinMode(pin, 1)  # OUTPUT
+        wiringpi.pinMode(pin, wiringpi.OUTPUT)  # OUTPUT
 
 def scan_input(pin_name):
     """Read and display input pin state"""
