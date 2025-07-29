@@ -7,18 +7,18 @@ startbutton = 14
 motorspeed = 100
 
 leftIR = 24 ##Confirmed
-rightIR = 20 ##Confirmed
-frontLeftIR = 23 ##Confirmed
-frontRightIR = 21 ##Confirmed
+rightIR = 16 ##Confirmed
+frontLeftIR = 15 ##Confirmed
+frontRightIR = 13 ##Confirmed
 
 colorLeft = 26 ##Confirmed
 colorRight = 25 ##Confirmed
 
 # Motor pins
-m1a = 17
-m1b = 19
-m2a = 18
-m2b = 16
+m1a = 21 ##Confirmed
+m1b = 20 ##Confirmed
+m2a = 22 ##Confirmed
+m2b = 23 ##Confirmed
 
 turnTimerLeft = 0
 turnTimerRight = 0
@@ -36,10 +36,10 @@ w.pinMode(frontRightIR, w.GPIO.INPUT) # Set to INPUT
 w.pinMode(startbutton, w.GPIO.INPUT)  # Set to INPUT
 
 # Setup motor output pins
-w.pinMode(m1a, w.GPIO.PWM_OUTPUT)     # Set to OUTPUT
-w.pinMode(m1b, w.GPIO.PWM_OUTPUT)     # Set to OUTPUT
-w.pinMode(m2a, w.GPIO.PWM_OUTPUT)     # Set to OUTPUT
-w.pinMode(m2b, w.GPIO.PWM_OUTPUT)     # Set to OUTPUT
+w.pinMode(m1a, w.GPIO.OUTPUT)     # Set to OUTPUT
+w.pinMode(m1b, w.GPIO.OUTPUT)     # Set to OUTPUT
+w.pinMode(m2a, w.GPIO.OUTPUT)     # Set to OUTPUT
+w.pinMode(m2b, w.GPIO.OUTPUT)     # Set to OUTPUT
 
 def getSensorData():
     p_leftIR = not w.digitalRead(leftIR)
@@ -51,34 +51,34 @@ def getSensorData():
     return p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight
 
 def moveForward():
-    w.pwmWrite(m1a, motorspeed)
-    w.pwmWrite(m1b, 0)
-    w.pwmWrite(m2a, motorspeed)
-    w.pwmWrite(m2b, 0)
+    w.digitalWrite(m1a, 1)
+    w.digitalWrite(m1b, 0)
+    w.digitalWrite(m2a, 1)
+    w.digitalWrite(m2b, 0)
 
 def moveBackward():
-    w.pwmWrite(m1a, 0)
-    w.pwmWrite(m1b, motorspeed)
-    w.pwmWrite(m2a, 0)
-    w.pwmWrite(m2b, motorspeed)
+    w.digitalWrite(m1a, 0)
+    w.digitalWrite(m1b, 1)
+    w.digitalWrite(m2a, 0)
+    w.digitalWrite(m2b, 1)
 
 def turnLeft():
-    w.pwmWrite(m1a, 0)
-    w.pwmWrite(m1b, motorspeed)
-    w.pwmWrite(m2a, motorspeed)
-    w.pwmWrite(m2b, 0)
+    w.digitalWrite(m1a, 0)
+    w.digitalWrite(m1b, 1)
+    w.digitalWrite(m2a, 1)
+    w.digitalWrite(m2b, 0)
 
 def turnRight():
-    w.pwmWrite(m1a, motorspeed)
-    w.pwmWrite(m1b, 0)
-    w.pwmWrite(m2a, 0)
-    w.pwmWrite(m2b, motorspeed)
+    w.digitalWrite(m1a, 1)
+    w.digitalWrite(m1b, 0)
+    w.digitalWrite(m2a, 0)
+    w.digitalWrite(m2b, 1)
 
 def stopMotors():
-    w.pwmWrite(m1a, 0)
-    w.pwmWrite(m1b, 0)
-    w.pwmWrite(m2a, 0)
-    w.pwmWrite(m2b, 0)
+    w.digitalWrite(m1a, 0)
+    w.digitalWrite(m1b, 0)
+    w.digitalWrite(m2a, 0)
+    w.digitalWrite(m2b, 0)
 
 while True:
     if(w.digitalRead(startbutton)):
