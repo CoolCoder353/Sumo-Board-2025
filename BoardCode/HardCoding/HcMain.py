@@ -80,8 +80,11 @@ def stopMotors():
     w.digitalWrite(m2a, 0)
     w.digitalWrite(m2b, 0)
 
+
+print("Starting Hardcoded Main Loop...")
+print("May god have mercy on our souls...")
 while True:
-    if(w.digitalRead(startbutton)):
+    # if(w.digitalRead(startbutton)):
         p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
         
         if(p_colorLeft == 1 or p_colorRight == 1 or turnTimerLeft > 0 or turnTimerRight > 0):
@@ -114,5 +117,5 @@ while True:
         else:
             #NO LINE, NO PEOPLE, GO FORWARD LONELY BOT
             moveForward()
-    else:
-        stopMotors()
+    # else:
+    #     stopMotors()
