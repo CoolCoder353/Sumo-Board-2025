@@ -30,13 +30,13 @@ m1a = 17
 m1b = 19
 m2a = 18
 m2b = 16
-left_color = 25
-right_color = 26
-right_ir = 24
-front_right_ir = 23
+left_color = 26
+right_color = 25
+right_ir = 20
+front_right_ir = 21
 button = 14
-left_ir = 13
-front_left_ir = 12
+left_ir = 24
+front_left_ir = 23
 
 # Pin mappings for easy reference
 input_pins = {

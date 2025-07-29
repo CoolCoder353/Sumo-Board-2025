@@ -6,13 +6,13 @@ startbutton = 14
 
 motorspeed = 100
 
-leftIR = 13
-rightIR = 24
-frontLeftIR = 12
-frontRightIR = 23
+leftIR = 24 ##Confirmed
+rightIR = 20 ##Confirmed
+frontLeftIR = 23 ##Confirmed
+frontRightIR = 21 ##Confirmed
 
-colorLeft = 25
-colorRight = 26
+colorLeft = 26 ##Confirmed
+colorRight = 25 ##Confirmed
 
 # Motor pins
 m1a = 17
