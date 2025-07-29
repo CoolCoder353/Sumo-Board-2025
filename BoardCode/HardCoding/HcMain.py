@@ -27,19 +27,19 @@ turningTime = 25
 w.wiringPiSetupGpio()  # For GPIO pin numbering
 
 # Setup input pins
-w.pinMode(leftIR, w.INPUT)       # Set to INPUT
-w.pinMode(rightIR, w.INPUT)      # Set to INPUT
-w.pinMode(colorLeft, w.INPUT)    # Set to INPUT
-w.pinMode(colorRight, w.INPUT)   # Set to INPUT
-w.pinMode(frontLeftIR, w.INPUT)  # Set to INPUT
-w.pinMode(frontRightIR, w.INPUT) # Set to INPUT
-w.pinMode(startbutton, w.INPUT)  # Set to INPUT
+w.pinMode(leftIR, w.GPIO.INPUT)       # Set to INPUT
+w.pinMode(rightIR, w.GPIO.INPUT)      # Set to INPUT
+w.pinMode(colorLeft, w.GPIO.INPUT)    # Set to INPUT
+w.pinMode(colorRight, w.GPIO.INPUT)   # Set to INPUT
+w.pinMode(frontLeftIR, w.GPIO.INPUT)  # Set to INPUT
+w.pinMode(frontRightIR, w.GPIO.INPUT) # Set to INPUT
+w.pinMode(startbutton, w.GPIO.INPUT)  # Set to INPUT
 
 # Setup motor output pins
-w.pinMode(m1a, w.PWM_OUTPUT)     # Set to OUTPUT
-w.pinMode(m1b, w.PWM_OUTPUT)     # Set to OUTPUT
-w.pinMode(m2a, w.PWM_OUTPUT)     # Set to OUTPUT
-w.pinMode(m2b, w.PWM_OUTPUT)     # Set to OUTPUT
+w.pinMode(m1a, w.GPIO.PWM_OUTPUT)     # Set to OUTPUT
+w.pinMode(m1b, w.GPIO.PWM_OUTPUT)     # Set to OUTPUT
+w.pinMode(m2a, w.GPIO.PWM_OUTPUT)     # Set to OUTPUT
+w.pinMode(m2b, w.GPIO.PWM_OUTPUT)     # Set to OUTPUT
 
 def getSensorData():
     p_leftIR = not w.digitalRead(leftIR)
