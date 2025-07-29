@@ -1,0 +1,6 @@
+Commands for Orange pi
+
+
+sudo python3 BoardCode/HardCoding/HcMain.py
+
+ssh -l orangepi 172.20.27.211
