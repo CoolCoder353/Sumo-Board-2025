@@ -24,7 +24,7 @@ turnTimerLeft = 0
 turnTimerRight = 0
 turningTime = 25
 
-w.wiringPiSetupGpio()  # For GPIO pin numbering
+w.wiringPiSetup()  # For GPIO pin numbering
 
 # Setup input pins
 w.pinMode(leftIR, w.GPIO.INPUT)       # Set to INPUT
