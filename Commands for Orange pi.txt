@@ -4,3 +4,6 @@ Commands for Orange pi
 sudo python3 BoardCode/HardCoding/HcMain.py
 
 ssh -l orangepi 172.20.27.211
+
+ssh orangepi@192.168.20.68
+orangepi

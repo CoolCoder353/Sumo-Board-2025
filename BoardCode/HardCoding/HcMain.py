@@ -5,8 +5,6 @@ import time
 
 startbutton = 27  # Confirmed
 
-toggle = False
-
 leftIR = 24 ##Confirmed
 rightIR = 16 ##Confirmed
 frontLeftIR = 15 ##Confirmed
@@ -30,7 +28,6 @@ turnTimerLeft = 0
 turnTimerRight = 0
 turningTime = 25
 
-readyToSwitch = True
 
 w.wiringPiSetup()  # For GPIO pin numbering
 
@@ -97,29 +94,16 @@ def stopMotors():
 print("Starting Hardcoded Main Loop...")
 print("May god have mercy on our souls...")
 while True:
-    time.sleep(0.1)  # Sleep to prevent busy waiting
-    #print(w.digitalRead(startbutton))
-
-    # Toggle functionality for the button
-    if(w.digitalRead(startbutton) == 0 and readyToSwitch):
-        toggle = not toggle
-        readyToSwitch = False
-        # 3 second wait time as per regulation
-        print("Toggle state changed to:", toggle)
-        time.sleep(3)
-    else:
-        readyToSwitch = True
-
-    if(toggle == False):
+    if(w.digitalRead(startbutton) == 1):
         #print("Waiting for button press...")
         turnTimerLeft = 0
         turnTimerRight = 0
         stopMotors()
         
-    if(toggle == True):
+    if(w.digitalRead(startbutton)==0):
         p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
         
-        print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
+        #print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
         if(p_colorLeft == 1 or p_colorRight == 1 or turnTimerLeft > 0 or turnTimerRight > 0):
             #SHIT THERES A LINE... GO BACK
             if(p_colorLeft == 1 or turnTimerLeft > 0):
