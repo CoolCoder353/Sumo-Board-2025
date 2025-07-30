@@ -97,6 +97,7 @@ def stopMotors():
 print("Starting Hardcoded Main Loop...")
 print("May god have mercy on our souls...")
 while True:
+    time.sleep(0.1)  # Sleep to prevent busy waiting
     #print(w.digitalRead(startbutton))
 
     # Toggle functionality for the button
@@ -118,8 +119,7 @@ while True:
     if(toggle == True):
         p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
         
-        #print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(
-        #    p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
+        print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
         if(p_colorLeft == 1 or p_colorRight == 1 or turnTimerLeft > 0 or turnTimerRight > 0):
             #SHIT THERES A LINE... GO BACK
             if(p_colorLeft == 1 or turnTimerLeft > 0):
