@@ -95,14 +95,16 @@ def stopMotors():
 print("Starting Hardcoded Main Loop...")
 print("May god have mercy on our souls...")
 while True:
+    print(w.digitalRead(startbutton))
+    continue; 
     # Toggle functionality for the button
     if(w.digitalRead(startbutton) == 1):
         toggle = not toggle
         # 3 second wait time as per regulation
-        print("Toggle state changed to:", toggle)
+        #print("Toggle state changed to:", toggle)
         time.sleep(3)
     else:
-        print("Waiting for button press...")
+        #print("Waiting for button press...")
         turnTimerLeft = 0
         turnTimerRight = 0
         stopMotors()
@@ -110,7 +112,7 @@ while True:
     if(toggle == True):
         p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
         
-        print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(
+        #print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(
             p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
         if(p_colorLeft == 1 or p_colorRight == 1 or turnTimerLeft > 0 or turnTimerRight > 0):
             #SHIT THERES A LINE... GO BACK
