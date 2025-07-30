@@ -57,30 +57,35 @@ def getSensorData():
     return p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight
 
 def moveForward():
+    print("Moving forward")
     w.digitalWrite(m1a, 1)
     w.digitalWrite(m1b, 0)
     w.digitalWrite(m2a, 1)
     w.digitalWrite(m2b, 0)
 
 def moveBackward():
+    print("Moving backward")
     w.digitalWrite(m1a, 0)
     w.digitalWrite(m1b, 1)
     w.digitalWrite(m2a, 0)
     w.digitalWrite(m2b, 1)
 
 def turnLeft():
+    print("Turning left")
     w.digitalWrite(m1a, 0)
     w.digitalWrite(m1b, 1)
     w.digitalWrite(m2a, 1)
     w.digitalWrite(m2b, 0)
 
 def turnRight():
+    print("Turning right")
     w.digitalWrite(m1a, 1)
     w.digitalWrite(m1b, 0)
     w.digitalWrite(m2a, 0)
     w.digitalWrite(m2b, 1)
 
 def stopMotors():
+    print("Stopping motors")
     w.digitalWrite(m1a, 0)
     w.digitalWrite(m1b, 0)
     w.digitalWrite(m2a, 0)
@@ -94,8 +99,10 @@ while True:
     if(w.digitalRead(startbutton) == 1):
         toggle = not toggle
         # 3 second wait time as per regulation
+        print("Toggle state changed to:", toggle)
         time.sleep(3)
     else:
+        print("Waiting for button press...")
         turnTimerLeft = 0
         turnTimerRight = 0
         stopMotors()
@@ -103,6 +110,8 @@ while True:
     if(toggle == True):
         p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
         
+        print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(
+            p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
         if(p_colorLeft == 1 or p_colorRight == 1 or turnTimerLeft > 0 or turnTimerRight > 0):
             #SHIT THERES A LINE... GO BACK
             if(p_colorLeft == 1 or turnTimerLeft > 0):
