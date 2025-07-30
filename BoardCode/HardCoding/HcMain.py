@@ -30,6 +30,8 @@ turnTimerLeft = 0
 turnTimerRight = 0
 turningTime = 25
 
+readyToSwitch = True
+
 w.wiringPiSetup()  # For GPIO pin numbering
 
 # Setup input pins
@@ -98,11 +100,14 @@ while True:
     #print(w.digitalRead(startbutton))
 
     # Toggle functionality for the button
-    if(w.digitalRead(startbutton) == 0):
+    if(w.digitalRead(startbutton) == 0 and readyToSwitch):
         toggle = not toggle
+        readyToSwitch = False
         # 3 second wait time as per regulation
         print("Toggle state changed to:", toggle)
         time.sleep(3)
+    else:
+        readyToSwitch = True
 
     if(toggle == False):
         #print("Waiting for button press...")
