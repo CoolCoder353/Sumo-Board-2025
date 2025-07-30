@@ -96,7 +96,7 @@ print("Starting Hardcoded Main Loop...")
 print("May god have mercy on our souls...")
 while True:
     print(w.digitalRead(startbutton))
-    continue; 
+    continue
     # Toggle functionality for the button
     if(w.digitalRead(startbutton) == 1):
         toggle = not toggle
@@ -113,7 +113,7 @@ while True:
         p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
         
         #print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(
-            p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
+        #    p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
         if(p_colorLeft == 1 or p_colorRight == 1 or turnTimerLeft > 0 or turnTimerRight > 0):
             #SHIT THERES A LINE... GO BACK
             if(p_colorLeft == 1 or turnTimerLeft > 0):
