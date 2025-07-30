@@ -1,10 +1,11 @@
 import wiringpi as w
 import logging
 import sys
+import time
 
 startbutton = 14
 
-motorspeed = 100
+toggle = False
 
 leftIR = 24 ##Confirmed
 rightIR = 16 ##Confirmed
@@ -19,6 +20,11 @@ m1a = 21 ##Confirmed
 m1b = 20 ##Confirmed
 m2a = 22 ##Confirmed
 m2b = 23 ##Confirmed
+
+# Motor Speed Forward and Backward
+fs = 100
+msf = 60
+msb = 50
 
 turnTimerLeft = 0
 turnTimerRight = 0
@@ -36,10 +42,10 @@ w.pinMode(frontRightIR, w.GPIO.INPUT) # Set to INPUT
 w.pinMode(startbutton, w.GPIO.INPUT)  # Set to INPUT
 
 # Setup motor output pins
-w.pinMode(m1a, w.GPIO.OUTPUT)     # Set to OUTPUT
-w.pinMode(m1b, w.GPIO.OUTPUT)     # Set to OUTPUT
-w.pinMode(m2a, w.GPIO.OUTPUT)     # Set to OUTPUT
-w.pinMode(m2b, w.GPIO.OUTPUT)     # Set to OUTPUT
+w.pinMode(m1a, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m1b, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m2a, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m2b, 4)     # Set to SOFT PWM OUTPUT
 
 def getSensorData():
     p_leftIR = not w.digitalRead(leftIR)
@@ -84,7 +90,17 @@ def stopMotors():
 print("Starting Hardcoded Main Loop...")
 print("May god have mercy on our souls...")
 while True:
-    # if(w.digitalRead(startbutton)):
+    # Toggle functionality for the button
+    if(w.digitalRead(startbutton) == 1):
+        toggle = not toggle
+        # 3 second wait time as per regulation
+        time.sleep(3)
+    else:
+        turnTimerLeft = 0
+        turnTimerRight = 0
+        stopMotors()
+        
+    if(toggle == True):
         p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
         
         if(p_colorLeft == 1 or p_colorRight == 1 or turnTimerLeft > 0 or turnTimerRight > 0):
