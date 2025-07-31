@@ -3,7 +3,8 @@ import logging
 import sys
 import time
 
-startbutton = 27  # Confirmed
+startbuttonread = 27  # Confirmed
+startbuttonwrite = 25 #Confirmed
 
 leftIR = 24 ##Confirmed
 rightIR = 16 ##Confirmed
@@ -38,7 +39,8 @@ w.pinMode(colorLeft, w.GPIO.INPUT)    # Set to INPUT
 w.pinMode(colorRight, w.GPIO.INPUT)   # Set to INPUT
 w.pinMode(frontLeftIR, w.GPIO.INPUT)  # Set to INPUT
 w.pinMode(frontRightIR, w.GPIO.INPUT) # Set to INPUT
-w.pinMode(startbutton, w.GPIO.INPUT)  # Set to INPUT
+w.pinMode(startbuttonread, w.GPIO.INPUT)  # Set to INPUT
+w.pinMode(startbuttonwrite, w.GPIO.OUTPUT) # Set to OUTPUT
 
 # Setup motor output pins
 w.pinMode(m1a, 4)     # Set to SOFT PWM OUTPUT
@@ -105,16 +107,18 @@ def stopMotors():
     w.digitalWrite(m2b, 0)
 
 try:
+
     print("Starting Hardcoded Main Loop...")
     print("May god have mercy on our souls...")
+    w.digitalWrite(startbuttonwrite, 1)
     while True:
-        if(w.digitalRead(startbutton) == 1):
+        if(w.digitalRead(startbuttonread) == 1):
             #print("Waiting for button press...")
             turnTimerLeft = 0
             turnTimerRight = 0
             stopMotors()
             
-        if(w.digitalRead(startbutton)==0):
+        if(w.digitalRead(startbuttonread)==0):
             p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
             
             #print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
