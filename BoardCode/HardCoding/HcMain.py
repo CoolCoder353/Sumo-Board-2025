@@ -41,7 +41,7 @@ w.pinMode(frontRightIR, w.GPIO.INPUT) # Set to INPUT
 
 # Setup Start Button
 w.pinMode(startbutton, w.GPIO.INPUT)  # Set to INPUT
-w.pullUpDnControl(startbutton, w.PUD_UP) # Sets internal pull up resistor function
+w.pullUpDnControl(startbutton, w.PUD_DOWN) # Sets internal pull up resistor function
 
 
 # Setup motor output pins
@@ -113,16 +113,17 @@ try:
     print("Starting Hardcoded Main Loop...")
     print("May god have mercy on our souls...")
     while True:
-        if(w.digitalRead(startbutton) == 1):
-            #print("Waiting for button press...")
+        time.sleep(0.1)
+        if(w.digitalRead(startbutton) == 0):
+            print("Waiting for button press...")
             turnTimerLeft = 0
             turnTimerRight = 0
             stopMotors()
             
-        if(w.digitalRead(startbutton)==0):
+        if(w.digitalRead(startbutton)==1):
             p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
             
-            #print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
+            print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
             if(p_colorLeft == 1 or p_colorRight == 1 or turnTimerLeft > 0 or turnTimerRight > 0):
                 #SHIT THERES A LINE... GO BACK
                 if(p_colorLeft == 1 or turnTimerLeft > 0):
