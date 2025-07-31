@@ -51,7 +51,7 @@ w.softPwmCreate(m1b, 0, fs) # Create Software Driven PWM Pin
 w.softPwmCreate(m2a, 0, fs) # Create Software Driven PWM Pin
 w.softPwmCreate(m2b, 0, fs) # Create Software Driven PWM Pin
 
-w.pwmSetMode(w.GPIO.PWM_MODE_MS) # Set PWM Type (Hard Oscilation)
+w.pwmSetMode(w.PWM_MODE_MS) # Set PWM Type (Hard Oscilation)
 
 def getSensorData():
     p_leftIR = not w.digitalRead(leftIR)
