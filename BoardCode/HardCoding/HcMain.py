@@ -75,38 +75,38 @@ def moveForward():
 
 def Sprint():
     #print("FULL SPEED AHEAD")
-    w.digitalWrite(m1a, 0)
-    w.digitalWrite(m1b, fs)
-    w.digitalWrite(m2a, 0)
-    w.digitalWrite(m2b, fs)
+    w.softPwmWrite(m1a, 0)
+    w.softPwmWrite(m1b, fs)
+    w.softPwmWrite(m2a, 0)
+    w.softPwmWrite(m2b, fs)
 
 def moveBackward():
     #print("Moving backward")
-    w.digitalWrite(m1a, 0)
-    w.digitalWrite(m1b, msb)
-    w.digitalWrite(m2a, 0)
-    w.digitalWrite(m2b, msb)
+    w.softPwmWrite(m1a, 0)
+    w.softPwmWrite(m1b, msb)
+    w.softPwmWrite(m2a, 0)
+    w.softPwmWrite(m2b, msb)
 
 def turnLeft():
     #print("Turning left")
-    w.digitalWrite(m1a, 0)
-    w.digitalWrite(m1b, msf)
-    w.digitalWrite(m2a, msf)
-    w.digitalWrite(m2b, 0)
+    w.softPwmWrite(m1a, 0)
+    w.softPwmWrite(m1b, msf)
+    w.softPwmWrite(m2a, msf)
+    w.softPwmWrite(m2b, 0)
 
 def turnRight():
     #print("Turning right")
-    w.digitalWrite(m1a, msf)
-    w.digitalWrite(m1b, 0)
-    w.digitalWrite(m2a, 0)
-    w.digitalWrite(m2b, msf)
+    w.softPwmWrite(m1a, msf)
+    w.softPwmWrite(m1b, 0)
+    w.softPwmWrite(m2a, 0)
+    w.softPwmWrite(m2b, msf)
 
 def stopMotors():
     #print("Stopping motors")
-    w.digitalWrite(m1a, 0)
-    w.digitalWrite(m1b, 0)
-    w.digitalWrite(m2a, 0)
-    w.digitalWrite(m2b, 0)
+    w.softPwmWrite(m1a, 0)
+    w.softPwmWrite(m1b, 0)
+    w.softPwmWrite(m2a, 0)
+    w.softPwmWrite(m2b, 0)
 
 try:
 
@@ -121,6 +121,7 @@ try:
             stopMotors()
             
         if(w.digitalRead(startbutton)==1):
+
             p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
             
             print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
