@@ -1,37 +1,47 @@
-import wiringpi
+import wiringpi as w
+import time
 
+# Motor pins
+m1a = 21 ##Confirmed
+m1b = 20 ##Confirmed
+m2a = 22 ##Confirmed
+m2b = 23 ##Confirmed
 
-m1a = 17
-m1b = 19
+# Motor Speed Forward (MSF) and Backward (MSB) and full speed (FS)
+fs = 100
+msf = 60
+msb = 50
 
-m2a = 18
-m2b = 16
+# Setup motor output pins
+w.pinMode(m1a, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m1b, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m2a, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m2b, 4)     # Set to SOFT PWM OUTPUT
 
-def setup_motor_pins():
-    """Setup GPIO pins for motor control."""
-    wiringpi.wiringPiSetupGpio()  # Use BCM GPIO numbering
-    wiringpi.pinMode(m1a, wiringpi.GPIO.OUTPUT)
-    wiringpi.pinMode(m1b, wiringpi.GPIO.OUTPUT)
-    wiringpi.pinMode(m2a, wiringpi.GPIO.OUTPUT)
-    wiringpi.pinMode(m2b, wiringpi.GPIO.OUTPUT)
+w.softPwmCreate(m1a, 0, fs) # Create Software Driven PWM Pin
+w.softPwmCreate(m1b, 0, fs) # Create Software Driven PWM Pin
+w.softPwmCreate(m2a, 0, fs) # Create Software Driven PWM Pin
+w.softPwmCreate(m2b, 0, fs) # Create Software Driven PWM Pin
 
-def motor_forward():
-    """Set motors to move forward."""
-    wiringpi.digitalWrite(m1a, wiringpi.GPIO.HIGH)
-    wiringpi.digitalWrite(m1b, wiringpi.GPIO.LOW)
-    wiringpi.digitalWrite(m2a, wiringpi.GPIO.HIGH)
-    wiringpi.digitalWrite(m2b, wiringpi.GPIO.LOW)
+w.pwmSetMode(w.PWM_MODE_MS) # Set PWM Type (Hard Oscilation)
 
-def motor_reverse():
-    """Set motors to move in reverse."""
-    wiringpi.digitalWrite(m1a, wiringpi.GPIO.LOW)
-    wiringpi.digitalWrite(m1b, wiringpi.GPIO.HIGH)
-    wiringpi.digitalWrite(m2a, wiringpi.GPIO.LOW)
-    wiringpi.digitalWrite(m2b, wiringpi.GPIO.HIGH)
+def moveForward():
+    print("Moving forward")
+    w.digitalWrite(m1a, msf)
+    w.digitalWrite(m1b, 0)
+    w.digitalWrite(m2a, msf)
+    w.digitalWrite(m2b, 0)
+
+def moveBackward():
+    print("Moving backward")
+    w.digitalWrite(m1a, 0)
+    w.digitalWrite(m1b, msb)
+    w.digitalWrite(m2a, 0)
+    w.digitalWrite(m2b, msb)
 
 while True:
-    motor_forward()
-    wiringpi.delay(1000)  # Run motors forward for 1 second
-    motor_reverse()
-    wiringpi.delay(1000)  # Run motors in reverse for 1 second
+    moveForward()
+    time.sleep(1)  # Run motors forward for 1 second
+    moveBackward()
+    time.sleep(1)  # Run motors in reverse for 1 second
 
