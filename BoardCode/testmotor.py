@@ -1,6 +1,9 @@
 import wiringpi as w
 import time
 
+w.wiringPiSetup()  # For GPIO pin numbering
+
+
 # Motor pins
 m1a = 21 ##Confirmed
 m1b = 20 ##Confirmed
