@@ -41,10 +41,17 @@ def moveBackward():
     w.digitalWrite(m1b, msb)
     w.digitalWrite(m2a, 0)
     w.digitalWrite(m2b, msb)
-
-while True:
-    moveForward()
-    time.sleep(1)  # Run motors forward for 1 second
-    moveBackward()
-    time.sleep(1)  # Run motors in reverse for 1 second
+try:
+    while True:
+        moveForward()
+        time.sleep(1)  # Run motors forward for 1 second
+        moveBackward()
+        time.sleep(1)  # Run motors in reverse for 1 second
+        
+except KeyboardInterrupt:
+    w.softPwmStop(m1a)
+    w.softPwmStop(m1b)
+    w.softPwmStop(m2a)
+    w.softPwmStop(m2b)
+    print("I SHALL DIE IN HONOR OF MY CREATORS")
 
