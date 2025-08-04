@@ -5,6 +5,7 @@ import time
 
 startbutton = 27  # Confirmed
 
+# Sensor pins
 leftIR = 24 ##Confirmed
 rightIR = 16 ##Confirmed
 frontLeftIR = 15 ##Confirmed
@@ -31,29 +32,30 @@ turningTime = 25
 
 w.wiringPiSetup()  # For GPIO pin numbering
 
-# Setup input pins
-w.pinMode(leftIR, w.GPIO.INPUT)       # Set to INPUT
-w.pinMode(rightIR, w.GPIO.INPUT)      # Set to INPUT
-w.pinMode(colorLeft, w.GPIO.INPUT)    # Set to INPUT
-w.pinMode(colorRight, w.GPIO.INPUT)   # Set to INPUT
-w.pinMode(frontLeftIR, w.GPIO.INPUT)  # Set to INPUT
-w.pinMode(frontRightIR, w.GPIO.INPUT) # Set to INPUT
+# Setup sensot input pins
+w.pinMode(leftIR, w.GPIO.INPUT)
+w.pinMode(rightIR, w.GPIO.INPUT)
+w.pinMode(colorLeft, w.GPIO.INPUT)
+w.pinMode(colorRight, w.GPIO.INPUT)
+w.pinMode(frontLeftIR, w.GPIO.INPUT)
+w.pinMode(frontRightIR, w.GPIO.INPUT)
 
 # Setup Start Button
-w.pinMode(startbutton, w.GPIO.INPUT)  # Set to INPUT
+w.pinMode(startbutton, w.GPIO.INPUT)
 w.pullUpDnControl(startbutton, w.PUD_DOWN) # Sets internal pull up resistor function
 
 
-# Setup motor output pins
-w.pinMode(m1a, 4)     # Set to SOFT PWM OUTPUT
-w.pinMode(m1b, 4)     # Set to SOFT PWM OUTPUT
-w.pinMode(m2a, 4)     # Set to SOFT PWM OUTPUT
-w.pinMode(m2b, 4)     # Set to SOFT PWM OUTPUT
+# Setup motor output pins (SoftPWM) (--POSSIBLY NOT NEEDED--)
+w.pinMode(m1a, 4)
+w.pinMode(m1b, 4)
+w.pinMode(m2a, 4)
+w.pinMode(m2b, 4)
 
-w.softPwmCreate(m1a, 0, fs) # Create Software Driven PWM Pin
-w.softPwmCreate(m1b, 0, fs) # Create Software Driven PWM Pin
-w.softPwmCreate(m2a, 0, fs) # Create Software Driven PWM Pin
-w.softPwmCreate(m2b, 0, fs) # Create Software Driven PWM Pin
+# Create Software Driven PWM Pin
+w.softPwmCreate(m1a, 0, fs)
+w.softPwmCreate(m1b, 0, fs)
+w.softPwmCreate(m2a, 0, fs)
+w.softPwmCreate(m2b, 0, fs) 
 
 #w.pwmSetMode(w.PWM_MODE_MS) # Set PWM Type (Hard Oscilation)
 

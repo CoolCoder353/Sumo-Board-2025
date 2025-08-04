@@ -16,37 +16,76 @@ msf = 60
 msb = 50
 
 # Setup motor output pins
-w.pinMode(m1a, 4)     # Set to SOFT PWM OUTPUT
-w.pinMode(m1b, 4)     # Set to SOFT PWM OUTPUT
-w.pinMode(m2a, 4)     # Set to SOFT PWM OUTPUT
-w.pinMode(m2b, 4)     # Set to SOFT PWM OUTPUT
+# w.pinMode(m1a, 4)     # Set to SOFT PWM OUTPUT
+# w.pinMode(m1b, 4)     # Set to SOFT PWM OUTPUT
+# w.pinMode(m2a, 4)     # Set to SOFT PWM OUTPUT
+# w.pinMode(m2b, 4)     # Set to SOFT PWM OUTPUT
 
-w.softPwmCreate(m1a, 0, fs) # Create Software Driven PWM Pin
-w.softPwmCreate(m1b, 0, fs) # Create Software Driven PWM Pin
-w.softPwmCreate(m2a, 0, fs) # Create Software Driven PWM Pin
-w.softPwmCreate(m2b, 0, fs) # Create Software Driven PWM Pin
+# Create Software Driven PWM Pins
+w.softPwmCreate(m1a, 0, fs)
+w.softPwmCreate(m1b, 0, fs)
+w.softPwmCreate(m2a, 0, fs)
+w.softPwmCreate(m2b, 0, fs)
 
-#w.pwmSetMode(w.PWM_MODE_MS) # Set PWM Type (Hard Oscilation)
+#w.pwmSetMode(w.PWM_MODE_MS) # Set PWM Type
 
 def moveForward():
     print("Moving forward")
-    w.digitalWrite(m1a, msf)
-    w.digitalWrite(m1b, 0)
-    w.digitalWrite(m2a, msf)
-    w.digitalWrite(m2b, 0)
+    w.softPwmWrite(m1a, msf)
+    w.softPwmWrite(m1b, 0)
+    w.softPwmWrite(m2a, msf)
+    w.softPwmWrite(m2b, 0)
 
 def moveBackward():
     print("Moving backward")
-    w.digitalWrite(m1a, 0)
-    w.digitalWrite(m1b, msb)
-    w.digitalWrite(m2a, 0)
-    w.digitalWrite(m2b, msb)
+    w.softPwmWrite(m1a, 0)
+    w.softPwmWrite(m1b, msb)
+    w.softPwmWrite(m2a, 0)
+    w.softPwmWrite(m2b, msb)
+
+def sprint():
+    print("Sprinting")
+    w.softPwmWrite(m1a, fs)
+    w.softPwmWrite(m1b, 0)
+    w.softPwmWrite(m2a, fs)
+    w.softPwmWrite(m2b, 0)
+
+def turnLeft():
+    print("Turning left")
+    w.softPwmWrite(m1a, 0)
+    w.softPwmWrite(m1b, msb)
+    w.softPwmWrite(m2a, msb)
+    w.softPwmWrite(m2b, 0)
+
+def turnRight():
+    print("Turning right")
+    w.softPwmWrite(m1a, msb)
+    w.softPwmWrite(m1b, 0)
+    w.softPwmWrite(m2a, 0)
+    w.softPwmWrite(m2b, msb)
+
+def stopMotors():
+    print("Stopping motors")
+    w.softPwmWrite(m1a, 0)
+    w.softPwmWrite(m1b, 0)
+    w.softPwmWrite(m2a, 0)
+    w.softPwmWrite(m2b, 0)
+
 try:
     while True:
         moveForward()
         time.sleep(1)  # Run motors forward for 1 second
+        sprint()
+        time.sleep(1) # Run motors full speed for 1 second
         moveBackward()
         time.sleep(1)  # Run motors in reverse for 1 second
+        turnLeft()
+        time.sleep(1) # Turn left for 1 second
+        turnRight()
+        time.sleep(1) # Turn right for 1 second
+        stopMotors()
+        time.sleep(1) # Stop motors for 1 second
+        
         
 except KeyboardInterrupt:
     w.softPwmStop(m1a)

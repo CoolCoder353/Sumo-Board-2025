@@ -5,6 +5,7 @@ import time
 
 startbutton = 27  # Confirmed
 
+# Sensor pins
 leftIR = 24 ##Confirmed
 rightIR = 16 ##Confirmed
 frontLeftIR = 15 ##Confirmed
@@ -26,24 +27,24 @@ turningTime = 25
 
 w.wiringPiSetup()  # For GPIO pin numbering
 
-# Setup input pins
-w.pinMode(leftIR, w.GPIO.INPUT)       # Set to INPUT
-w.pinMode(rightIR, w.GPIO.INPUT)      # Set to INPUT
-w.pinMode(colorLeft, w.GPIO.INPUT)    # Set to INPUT
-w.pinMode(colorRight, w.GPIO.INPUT)   # Set to INPUT
-w.pinMode(frontLeftIR, w.GPIO.INPUT)  # Set to INPUT
-w.pinMode(frontRightIR, w.GPIO.INPUT) # Set to INPUT
+# Setup sensor input pins
+w.pinMode(leftIR, w.GPIO.INPUT)
+w.pinMode(rightIR, w.GPIO.INPUT)
+w.pinMode(colorLeft, w.GPIO.INPUT)
+w.pinMode(colorRight, w.GPIO.INPUT)
+w.pinMode(frontLeftIR, w.GPIO.INPUT)
+w.pinMode(frontRightIR, w.GPIO.INPUT)
 
 # Setup Start Button
-w.pinMode(startbutton, w.GPIO.INPUT)  # Set to INPUT
+w.pinMode(startbutton, w.GPIO.INPUT)
 w.pullUpDnControl(startbutton, w.PUD_DOWN) # Sets internal pull up resistor function
 
 
 # Setup motor output pins
-w.pinMode(m1a, w.GPIO.OUTPUT)     # Set to OUTPUT
-w.pinMode(m1b, w.GPIO.OUTPUT)     # Set to OUTPUT
-w.pinMode(m2a, w.GPIO.OUTPUT)     # Set to OUTPUT
-w.pinMode(m2b, w.GPIO.OUTPUT)     # Set to OUTPUT
+w.pinMode(m1a, w.GPIO.OUTPUT)
+w.pinMode(m1b, w.GPIO.OUTPUT)
+w.pinMode(m2a, w.GPIO.OUTPUT)
+w.pinMode(m2b, w.GPIO.OUTPUT)
 
 def getSensorData():
     p_leftIR = not w.digitalRead(leftIR)
