@@ -3,7 +3,7 @@ import logging
 import sys
 import time
 
-startbutton = 27  # Confirmed
+startbutton = 27  ##Confirmed
 
 # Sensor pins
 leftIR = 24 ##Confirmed
@@ -20,9 +20,6 @@ m1b = 20 ##Confirmed
 m2a = 22 ##Confirmed
 m2b = 23 ##Confirmed
 
-turnTimerLeft = 0
-turnTimerRight = 0
-turningTime = 25
 
 
 w.wiringPiSetup()  # For GPIO pin numbering
@@ -95,45 +92,47 @@ try:
     print("Starting Hardcoded Main Loop...")
     print("May god have mercy on our souls...")
     while True:
-        time.sleep(0.1)
         if(w.digitalRead(startbutton) == 0):
             print("Waiting for button press...")
-            turnTimerLeft = 0
-            turnTimerRight = 0
+            timerToggle = True
             stopMotors()
             
+            
         if(w.digitalRead(startbutton) == 1):
-
+            if timerToggle == True:
+                timerToggle = False
+                time.sleep(3)
+            
             p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
             
             print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
-            if(p_colorLeft == 1 or p_colorRight == 1 or turnTimerLeft > 0 or turnTimerRight > 0):
+            if(p_colorLeft == 1 or p_colorRight == 1):
                 #SHIT THERES A LINE... GO BACK
-                if(p_colorLeft == 1 or turnTimerLeft > 0):
+                if(p_colorLeft == 1):
                     #LEFT LINE
-                    if(p_colorLeft == 1):
-                        turnTimerLeft = turningTime
-                    elif turnTimerLeft > 0:
-                        turnTimerLeft -= 1
+                    print("Left Color Sensor Detect")
+                    moveBackward()
+                    w.delay(250)
                     turnRight()
-                
-                elif(p_colorRight == 1 or turnTimerRight > 0):
+                    w.delay(250)  
+                elif(p_colorRight == 1):
                     #RIGHT LINE
-                    if(p_colorRight == 1):
-                        turnTimerRight = turningTime
-                    elif turnTimerRight > 0:
-                        turnTimerRight -= 1
+                    print("Left Color Sensor Detect")
+                    moveBackward()
+                    w.delay(250)
                     turnLeft()
+                    w.delay(250)  
 
             elif(p_frontLeftIR == 1 or p_frontRightIR == 1):
                 #SHIT WE FOUND THE FUCKER, GET HIM!!!!
                 if(p_frontLeftIR == 1):
                     #LEFT FRONT IR
-                    turnRight()
+                    turnLeft()
+                    w.delay(250)
                 elif(p_frontRightIR == 1):
                     #RIGHT FRONT IR
-                    turnLeft()
-            
+                    turnRight()
+                    w.delay(250)
             else:
                 #NO LINE, NO PEOPLE, GO FORWARD LONELY BOT
                 moveForward()
