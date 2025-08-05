@@ -1,9 +1,12 @@
 import wiringpi as w
 import time
 
+w.wiringPiSetup()  # For GPIO pin numbering
+
+
 # Motor pins
 m1a = 21 ##Confirmed
-m1b = 19 ##Confirmed
+m1b = 20 ##Confirmed
 m2a = 22 ##Confirmed
 m2b = 23 ##Confirmed
 
@@ -12,49 +15,61 @@ fs = 100
 msf = 60
 msb = 50
 
-w.wiringPiSetup()  # For GPIO pin numbering
+# Setup motor output pins (Possibly not needed)
+w.pinMode(m1a, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m1b, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m2a, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m2b, 4)     # Set to SOFT PWM OUTPUT
 
-# Setup motor output pins
-w.pinMode(m1a, w.GPIO.OUTPUT)
-w.pinMode(m1b, w.GPIO.OUTPUT)
-w.pinMode(m2a, w.GPIO.OUTPUT)
-w.pinMode(m2b, w.GPIO.OUTPUT)
+# Create Software Driven PWM Pins
+w.softPwmCreate(m1a, 0, fs)
+w.softPwmCreate(m1b, 0, fs)
+w.softPwmCreate(m2a, 0, fs)
+w.softPwmCreate(m2b, 0, fs)
+
+#w.pwmSetMode(w.PWM_MODE_MS) # Set PWM Type
 
 def moveForward():
-    #print("Moving forward")
-    w.digitalWrite(m1a, 1)
-    w.digitalWrite(m1b, 0)
-    w.digitalWrite(m2a, 1)
-    w.digitalWrite(m2b, 0)
+    print("Moving forward")
+    w.softPwmWrite(m1a, msf)
+    w.softPwmWrite(m1b, 0)
+    w.softPwmWrite(m2a, msf)
+    w.softPwmWrite(m2b, 0)
 
 def moveBackward():
-    #print("Moving backward")
-    w.digitalWrite(m1a, 0)
-    w.digitalWrite(m1b, 1)
-    w.digitalWrite(m2a, 0)
-    w.digitalWrite(m2b, 1)
+    print("Moving backward")
+    w.softPwmWrite(m1a, 0)
+    w.softPwmWrite(m1b, msb)
+    w.softPwmWrite(m2a, 0)
+    w.softPwmWrite(m2b, msb)
+
+def sprint():
+    print("Sprinting")
+    w.softPwmWrite(m1a, fs)
+    w.softPwmWrite(m1b, 0)
+    w.softPwmWrite(m2a, fs)
+    w.softPwmWrite(m2b, 0)
 
 def turnLeft():
-    #print("Turning left")
-    w.digitalWrite(m1a, 0)
-    w.digitalWrite(m1b, 1)
-    w.digitalWrite(m2a, 1)
-    w.digitalWrite(m2b, 0)
+    print("Turning left")
+    w.softPwmWrite(m1a, 0)
+    w.softPwmWrite(m1b, msb)
+    w.softPwmWrite(m2a, msb)
+    w.softPwmWrite(m2b, 0)
 
 def turnRight():
-    #print("Turning right")
-    w.digitalWrite(m1a, 1)
-    w.digitalWrite(m1b, 0)
-    w.digitalWrite(m2a, 0)
-    w.digitalWrite(m2b, 1)
+    print("Turning right")
+    w.softPwmWrite(m1a, msb)
+    w.softPwmWrite(m1b, 0)
+    w.softPwmWrite(m2a, 0)
+    w.softPwmWrite(m2b, msb)
 
 def stopMotors():
-    #print("Stopping motors")
-    w.digitalWrite(m1a, 0)
-    w.digitalWrite(m1b, 0)
-    w.digitalWrite(m2a, 0)
-    w.digitalWrite(m2b, 0)
-
+    print("Stopping motors")
+    w.softPwmWrite(m1a, 0)
+    w.softPwmWrite(m1b, 0)
+    w.softPwmWrite(m2a, 0)
+    w.softPwmWrite(m2b, 0)
 try:
     while True:
         moveForward()
