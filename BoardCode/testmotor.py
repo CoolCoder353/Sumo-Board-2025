@@ -85,5 +85,9 @@ try:
         
         
 except KeyboardInterrupt:
+    w.softPwmStop(m1a)
+    w.softPwmStop(m1b)
+    w.softPwmStop(m2a)
+    w.softPwmStop(m2b)
     print("I SHALL DIE IN HONOR OF MY CREATORS")
 
