@@ -16,10 +16,10 @@ msf = 60
 msb = 50
 
 # Setup motor output pins (Possibly not needed)
-# w.pinMode(m1a, 4)     # Set to SOFT PWM OUTPUT
-# w.pinMode(m1b, 4)     # Set to SOFT PWM OUTPUT
-# w.pinMode(m2a, 4)     # Set to SOFT PWM OUTPUT
-# w.pinMode(m2b, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m1a, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m1b, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m2a, 4)     # Set to SOFT PWM OUTPUT
+w.pinMode(m2b, 4)     # Set to SOFT PWM OUTPUT
 
 # Create Software Driven PWM Pins
 w.softPwmCreate(m1a, 0, fs)
