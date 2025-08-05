@@ -45,8 +45,10 @@ Board pins (WPI)
     colorRight = 25
 
     # Motor pins
+    right
     m1a = 21
     m1b = 20
+    left
     m2a = 22
     m2b = 23
 
