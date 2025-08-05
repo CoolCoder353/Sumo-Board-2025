@@ -3,7 +3,7 @@ import time
 
 # Motor pins
 m1a = 21 ##Confirmed
-m1b = 20 ##Confirmed
+m1b = 19 ##Confirmed
 m2a = 22 ##Confirmed
 m2b = 23 ##Confirmed
 
