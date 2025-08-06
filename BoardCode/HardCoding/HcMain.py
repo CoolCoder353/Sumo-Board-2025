@@ -99,7 +99,7 @@ def turnLeft():
 
 def turnRight():
     print("Turning right")
-    w.softPwmWrite(m1a, )
+    w.softPwmWrite(m1a, 0)
     w.softPwmWrite(m1b, msf)
     w.softPwmWrite(m2a, msf)
     w.softPwmWrite(m2b, 0)
