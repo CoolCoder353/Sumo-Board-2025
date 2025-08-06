@@ -149,6 +149,11 @@ try:
 
             if(p_frontLeftIR == 1 or p_frontRightIR == 1):
                 #SHIT WE FOUND THE FUCKER, GET HIM!!!!
+                if(p_frontLeftIR == 1 and p_frontRightIR == 1):
+                    print("Both Front IR Sensors Detect")
+                    #BOTH FRONT IR SENSORS DETECT
+                    moveForward()
+
                 if(p_frontLeftIR == 1):
                     #LEFT FRONT IR
                     turnRight()
