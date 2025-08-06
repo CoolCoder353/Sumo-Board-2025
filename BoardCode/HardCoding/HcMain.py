@@ -125,7 +125,7 @@ try:
         if(w.digitalRead(startbutton) == 1):
             if timerToggle == True:
                 timerToggle = False
-                time.sleep(3)
+                time.sleep(2.9)
             
             p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
             
