@@ -7,4 +7,10 @@ w.pinMode(colorRight, w.GPIO.INPUT)
 while True:
     colorLeftValue = w.analogRead(colorLeft)
     colorRightValue = w.analogRead(colorRight)
-    print(f"Color Left: {colorLeftValue}, Color Right: {colorRightValue}")
+    
+    print(f"ANALOG Color Left: {colorLeftValue}, Color Right: {colorRightValue}")
+
+    w.delay(100)
+    colorLeftValue = w.digitalRead(colorLeft)
+    colorRightValue = w.digitalRead(colorRight)
+    print(f"DIGITAL Color Left: {colorLeftValue}, Color Right: {colorRightValue}")
