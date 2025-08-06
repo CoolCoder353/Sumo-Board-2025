@@ -27,8 +27,8 @@ msb = 50
 
 timerToggle = True
 
-turnbacktime = 500
-turndirectiontime = 500
+turnbacktime = 1000
+turndirectiontime = 1000
 
 w.wiringPiSetup()  # For GPIO pin numbering
 
@@ -129,25 +129,25 @@ try:
             
             p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
             
-            ##print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
-            if(p_colorLeft == 1 or p_colorRight == 1):
-                #SHIT THERES A LINE... GO BACK
-                if(p_colorLeft == 1):
-                    #LEFT LINE
-                    print("Left Color Sensor Detect")
-                    moveBackward()
-                    w.delay(turnbacktime)
-                    turnRight()
-                    w.delay(turndirectiontime)
-                elif(p_colorRight == 1):
-                    #RIGHT LINE
-                    print("Right Color Sensor Detect")
-                    moveBackward()
-                    w.delay(turnbacktime)
-                    turnLeft()
-                    w.delay(turndirectiontime)
+            # ##print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
+            # if(p_colorLeft == 1 or p_colorRight == 1):
+            #     #SHIT THERES A LINE... GO BACK
+            #     if(p_colorLeft == 1):
+            #         #LEFT LINE
+            #         print("Left Color Sensor Detect")
+            #         moveBackward()
+            #         w.delay(turnbacktime)
+            #         turnRight()
+            #         w.delay(turndirectiontime)
+            #     elif(p_colorRight == 1):
+            #         #RIGHT LINE
+            #         print("Right Color Sensor Detect")
+            #         moveBackward()
+            #         w.delay(turnbacktime)
+            #         turnLeft()
+            #         w.delay(turndirectiontime)
 
-            elif(p_frontLeftIR == 1 or p_frontRightIR == 1):
+            if(p_frontLeftIR == 1 or p_frontRightIR == 1):
                 #SHIT WE FOUND THE FUCKER, GET HIM!!!!
                 if(p_frontLeftIR == 1):
                     #LEFT FRONT IR
