@@ -134,14 +134,14 @@ try:
                     # moveBackward()
                     # w.delay(250)
                     turnRight()
-                    w.delay(250)  
+                    time.sleep(0.25)
                 elif(p_colorRight == 1):
                     #RIGHT LINE
                     print("Right Color Sensor Detect")
                     # moveBackward()
                     # w.delay(250)
                     turnLeft()
-                    w.delay(250)  
+                    time.sleep(0.25) 
 
             elif(p_frontLeftIR == 1 or p_frontRightIR == 1):
                 #SHIT WE FOUND THE FUCKER, GET HIM!!!!
