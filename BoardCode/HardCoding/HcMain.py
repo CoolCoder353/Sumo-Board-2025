@@ -152,11 +152,11 @@ try:
                 if(p_frontLeftIR == 1):
                     #LEFT FRONT IR
                     turnRight()
-                    w.delay(250)
+                   
                 elif(p_frontRightIR == 1):
                     #RIGHT FRONT IR
                     turnLeft()
-                    w.delay(250)
+                   
             else:
                 #NO LINE, NO PEOPLE, GO FORWARD LONELY BOT
                 moveForward()
