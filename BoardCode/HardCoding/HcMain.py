@@ -66,42 +66,42 @@ def getSensorData():
     return p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight
 
 def moveBackward():
-    #print("Moving forward")
+    print("Moving backward")
     w.digitalWrite(m1a, msf)
     w.digitalWrite(m1b, 0)
     w.digitalWrite(m2a, msf)
     w.digitalWrite(m2b, 0)
 
 def Sprint():
-    #print("FULL SPEED AHEAD")
+    print("FULL SPEED AHEAD")
     w.digitalWrite(m1a, 0)
     w.digitalWrite(m1b, fs)
     w.digitalWrite(m2a, 0)
     w.digitalWrite(m2b, fs)
 
 def moveForward():
-    #print("Moving backward")
+    print("Moving forward")
     w.digitalWrite(m1a, 0)
     w.digitalWrite(m1b, msb)
     w.digitalWrite(m2a, 0)
     w.digitalWrite(m2b, msb)
 
 def turnLeft():
-    #print("Turning left")
+    print("Turning left")
     w.digitalWrite(m1a, 0)
     w.digitalWrite(m1b, msf)
     w.digitalWrite(m2a, msf)
     w.digitalWrite(m2b, 0)
 
 def turnRight():
-    #print("Turning right")
+    print("Turning right")
     w.digitalWrite(m1a, msf)
     w.digitalWrite(m1b, 0)
     w.digitalWrite(m2a, 0)
     w.digitalWrite(m2b, msf)
 
 def stopMotors():
-    #print("Stopping motors")
+    print("Stopping motors")
     w.digitalWrite(m1a, 0)
     w.digitalWrite(m1b, 0)
     w.digitalWrite(m2a, 0)
@@ -125,7 +125,7 @@ try:
             
             p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight = getSensorData()
             
-            print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
+            ##print("Sensor Data - Left IR: {}, Right IR: {}, Front Left IR: {}, Front Right IR: {}, Color Left: {}, Color Right: {}".format(p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight))
             if(p_colorLeft == 1 or p_colorRight == 1):
                 #SHIT THERES A LINE... GO BACK
                 if(p_colorLeft == 1):
@@ -137,7 +137,7 @@ try:
                     w.delay(250)  
                 elif(p_colorRight == 1):
                     #RIGHT LINE
-                    print("Left Color Sensor Detect")
+                    print("Right Color Sensor Detect")
                     moveBackward()
                     w.delay(250)
                     turnLeft()
