@@ -154,7 +154,7 @@ try:
                     #BOTH FRONT IR SENSORS DETECT
                     moveForward()
 
-                if(p_frontLeftIR == 1):
+                elif(p_frontLeftIR == 1):
                     #LEFT FRONT IR
                     turnRight()
                    
