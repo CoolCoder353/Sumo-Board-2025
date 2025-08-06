@@ -27,6 +27,9 @@ msb = 50
 
 timerToggle = True
 
+turnbacktime = 500
+turndirectiontime = 500
+
 w.wiringPiSetup()  # For GPIO pin numbering
 
 # Setup sensot input pins
@@ -132,17 +135,17 @@ try:
                 if(p_colorLeft == 1):
                     #LEFT LINE
                     print("Left Color Sensor Detect")
-                    # moveBackward()
-                    # w.delay(250)
+                    moveBackward()
+                    w.delay(turnbacktime)
                     turnRight()
-                    w.delay(250)
+                    w.delay(turndirectiontime)
                 elif(p_colorRight == 1):
                     #RIGHT LINE
                     print("Right Color Sensor Detect")
-                    # moveBackward()
-                    # w.delay(250)
+                    moveBackward()
+                    w.delay(turnbacktime)
                     turnLeft()
-                    w.delay(250)
+                    w.delay(turndirectiontime)
 
             elif(p_frontLeftIR == 1 or p_frontRightIR == 1):
                 #SHIT WE FOUND THE FUCKER, GET HIM!!!!
