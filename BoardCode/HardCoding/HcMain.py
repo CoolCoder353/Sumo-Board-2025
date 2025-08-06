@@ -22,7 +22,7 @@ m2b = 22 ##Confirmed
 
 # Motor Speed Forward (MSF) and Backward (MSB) and full speed (FS)
 fs = 100
-msf = 60
+msf = 85
 msb = 50
 
 timerToggle = True
@@ -151,11 +151,11 @@ try:
                 #SHIT WE FOUND THE FUCKER, GET HIM!!!!
                 if(p_frontLeftIR == 1):
                     #LEFT FRONT IR
-                    turnLeft()
+                    turnRight()
                     w.delay(250)
                 elif(p_frontRightIR == 1):
                     #RIGHT FRONT IR
-                    turnRight()
+                    turnLeft()
                     w.delay(250)
             else:
                 #NO LINE, NO PEOPLE, GO FORWARD LONELY BOT
