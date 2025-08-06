@@ -131,15 +131,15 @@ try:
                 if(p_colorLeft == 1):
                     #LEFT LINE
                     print("Left Color Sensor Detect")
-                    moveBackward()
-                    w.delay(250)
+                    # moveBackward()
+                    # w.delay(250)
                     turnRight()
                     w.delay(250)  
                 elif(p_colorRight == 1):
                     #RIGHT LINE
                     print("Right Color Sensor Detect")
-                    moveBackward()
-                    w.delay(250)
+                    # moveBackward()
+                    # w.delay(250)
                     turnLeft()
                     w.delay(250)  
 
