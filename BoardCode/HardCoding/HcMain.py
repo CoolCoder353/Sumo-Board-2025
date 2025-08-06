@@ -64,7 +64,7 @@ def getSensorData():
     p_colorRight = not w.digitalRead(colorRight)
     return p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight
 
-def moveForward():
+def moveBackward():
     #print("Moving forward")
     w.digitalWrite(m1a, msf)
     w.digitalWrite(m1b, 0)
@@ -78,7 +78,7 @@ def Sprint():
     w.digitalWrite(m2a, 0)
     w.digitalWrite(m2b, fs)
 
-def moveBackward():
+def moveForward():
     #print("Moving backward")
     w.digitalWrite(m1a, 0)
     w.digitalWrite(m1b, msb)

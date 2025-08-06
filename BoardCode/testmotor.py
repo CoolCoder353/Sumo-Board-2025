@@ -29,15 +29,15 @@ w.softPwmCreate(m2b, 0, fs)
 
 #w.pwmSetMode(w.PWM_MODE_MS) # Set PWM Type
 
-def moveForward():
-    print("Moving forward")
+def moveBackward():
+    print("Moving backward")
     w.softPwmWrite(m1a, msf)
     w.softPwmWrite(m1b, 0)
     w.softPwmWrite(m2a, msf)
     w.softPwmWrite(m2b, 0)
 
-def moveBackward():
-    print("Moving backward")
+def moveForward():
+    print("Moving forward")
     w.softPwmWrite(m1a, 0)
     w.softPwmWrite(m1b, msb)
     w.softPwmWrite(m2a, 0)
