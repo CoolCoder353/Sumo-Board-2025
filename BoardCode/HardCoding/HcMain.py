@@ -25,6 +25,7 @@ fs = 100
 msf = 60
 msb = 50
 
+timerToggle = True
 
 w.wiringPiSetup()  # For GPIO pin numbering
 
