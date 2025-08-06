@@ -90,12 +90,12 @@ def turnLeft():
     print("Turning left")
     w.digitalWrite(m1a, 0)
     w.digitalWrite(m1b, msf)
-    w.digitalWrite(m2a, msf)
+    w.digitalWrite(m2a, 0)
     w.digitalWrite(m2b, 0)
 
 def turnRight():
     print("Turning right")
-    w.digitalWrite(m1a, msf)
+    w.digitalWrite(m1a, 0)
     w.digitalWrite(m1b, 0)
     w.digitalWrite(m2a, 0)
     w.digitalWrite(m2b, msf)
@@ -134,14 +134,14 @@ try:
                     # moveBackward()
                     # w.delay(250)
                     turnRight()
-                    time.sleep(0.25)
+                    w.delay(250)
                 elif(p_colorRight == 1):
                     #RIGHT LINE
                     print("Right Color Sensor Detect")
                     # moveBackward()
                     # w.delay(250)
                     turnLeft()
-                    time.sleep(0.25) 
+                    w.delay(250)
 
             elif(p_frontLeftIR == 1 or p_frontRightIR == 1):
                 #SHIT WE FOUND THE FUCKER, GET HIM!!!!
