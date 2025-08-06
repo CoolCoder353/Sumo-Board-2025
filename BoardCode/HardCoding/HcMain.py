@@ -22,8 +22,8 @@ m2b = 22 ##Confirmed
 
 # Motor Speed Forward (MSF) and Backward (MSB) and full speed (FS)
 fs = 100
-msf = 85
-msb = 50
+msf = 100
+msb = 100
 
 timerToggle = True
 
