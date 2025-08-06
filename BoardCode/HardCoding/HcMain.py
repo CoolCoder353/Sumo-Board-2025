@@ -64,8 +64,8 @@ def getSensorData():
     p_rightIR = not w.digitalRead(rightIR)
     p_frontLeftIR = not w.digitalRead(frontLeftIR)
     p_frontRightIR = not w.digitalRead(frontRightIR)
-    p_colorLeft = not w.digitalRead(colorLeft)
-    p_colorRight = not w.digitalRead(colorRight)
+    p_colorLeft = not w.analogRead(colorLeft)
+    p_colorRight = not w.analogRead(colorRight)
     return p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight
 
 def moveBackward():
