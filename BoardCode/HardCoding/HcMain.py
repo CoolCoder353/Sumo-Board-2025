@@ -67,10 +67,10 @@ def getSensorData():
 
 def moveBackward():
     print("Moving backward")
-    w.softPwmWrite(m1a, msf)
-    w.softPwmWrite(m1b, 0)
-    w.softPwmWrite(m2a, msf)
-    w.softPwmWrite(m2b, 0)
+    w.softPwmWrite(m1a, 0)
+    w.softPwmWrite(m1b, msb)
+    w.softPwmWrite(m2a, 0)
+    w.softPwmWrite(m2b, msb)
 
 def Sprint():
     print("FULL SPEED AHEAD")
@@ -81,10 +81,10 @@ def Sprint():
 
 def moveForward():
     print("Moving forward")
-    w.softPwmWrite(m1a, 0)
-    w.softPwmWrite(m1b, msb)
-    w.softPwmWrite(m2a, 0)
-    w.softPwmWrite(m2b, msb)
+    w.softPwmWrite(m1a, msf)
+    w.softPwmWrite(m1b, 0)
+    w.softPwmWrite(m2a, msf)
+    w.softPwmWrite(m2b, 0)
 
 
 def turnLeft():
