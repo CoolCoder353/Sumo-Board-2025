@@ -5,10 +5,10 @@ w.wiringPiSetup()  # For GPIO pin numbering
 
 
 # Motor pins
-m1a = 21 ##Confirmed
-m1b = 20 ##Confirmed
-m2a = 22 ##Confirmed
-m2b = 23 ##Confirmed
+m1a = 20 ##Confirmed
+m1b = 21 ##Confirmed
+m2a = 23 ##Confirmed
+m2b = 22 ##Confirmed
 
 # Motor Speed Forward (MSF) and Backward (MSB) and full speed (FS)
 fs = 100
@@ -73,15 +73,15 @@ def stopMotors():
 try:
     while True:
         moveForward()
-        time.sleep(1)  # Run motors forward for 1 second
+        time.sleep(4)  # Run motors forward for 1 second
         moveBackward()
-        time.sleep(1)  # Run motors in reverse for 1 second
+        time.sleep(4)  # Run motors in reverse for 1 second
         turnLeft()
-        time.sleep(1) # Turn left for 1 second
+        time.sleep(4) # Turn left for 1 second
         turnRight()
-        time.sleep(1) # Turn right for 1 second
+        time.sleep(4) # Turn right for 1 second
         stopMotors()
-        time.sleep(1) # Stop motors for 1 second
+        time.sleep(4) # Stop motors for 1 second
         
         
 except KeyboardInterrupt:

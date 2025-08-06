@@ -15,10 +15,10 @@ colorLeft = 26 ##Confirmed
 colorRight = 25 ##Confirmed
 
 # Motor pins
-m1a = 21 ##Confirmed
-m1b = 20 ##Confirmed
-m2a = 22 ##Confirmed
-m2b = 23 ##Confirmed
+m1a = 20 ##Confirmed
+m1b = 21 ##Confirmed
+m2a = 23 ##Confirmed
+m2b = 22 ##Confirmed
 
 
 
