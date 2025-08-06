@@ -69,21 +69,21 @@ def getSensorData():
     return p_leftIR, p_rightIR, p_frontLeftIR, p_frontRightIR, p_colorLeft, p_colorRight
 
 def moveBackward():
-    print("Moving backward")
+    # print("Moving backward")
     w.softPwmWrite(m1a, 0)
     w.softPwmWrite(m1b, msb)
     w.softPwmWrite(m2a, 0)
     w.softPwmWrite(m2b, msb)
 
 def Sprint():
-    print("FULL SPEED AHEAD")
+    # print("FULL SPEED AHEAD")
     w.softPwmWrite(m1a, 0)
     w.softPwmWrite(m1b, fs)
     w.softPwmWrite(m2a, 0)
     w.softPwmWrite(m2b, fs)
 
 def moveForward():
-    print("Moving forward")
+    # print("Moving forward")
     w.softPwmWrite(m1a, msf)
     w.softPwmWrite(m1b, 0)
     w.softPwmWrite(m2a, msf)
@@ -91,21 +91,21 @@ def moveForward():
 
 
 def turnLeft():
-    print("Turning left")
+    # print("Turning left")
     w.softPwmWrite(m1a, msf)
     w.softPwmWrite(m1b, 0)
     w.softPwmWrite(m2a, 0)
     w.softPwmWrite(m2b, msf)
 
 def turnRight():
-    print("Turning right")
+    # print("Turning right")
     w.softPwmWrite(m1a, 0)
     w.softPwmWrite(m1b, msf)
     w.softPwmWrite(m2a, msf)
     w.softPwmWrite(m2b, 0)
 
 def stopMotors():
-    print("Stopping motors")
+    # print("Stopping motors")
     w.softPwmWrite(m1a, 0)
     w.softPwmWrite(m1b, 0)
     w.softPwmWrite(m2a, 0)
