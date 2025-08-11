@@ -13,6 +13,12 @@ int colorRight = A1; // Right color sensor (analog pin)
 
 float distanceThreshold = 100; // Digital threshold for IR obstacle detection
 
+// Motor speed settings (0-255 PWM values)
+float forwardSpeed = 50;  // Normal forward movement speed
+float backwardSpeed = 25; // Backward movement speed
+float turnSpeed = 20;     // Turning speed
+float sprintSpeed = 100;  // High speed when enemy is detected
+
 // Behavior control flags
 bool hardTurn = false; // Enable hard turns (both motors in opposite directions)
 
@@ -94,17 +100,6 @@ void stop()
 
 // Sensor reading functions
 
-// Check if white surface is detected at specified analog pin
-// Returns true if analog reading is above white threshold
-bool isWhiteAt(int pinNum)
-{
-  if (analogRead(pinNum) >= whiteThreshold)
-  {
-    return true;
-  }
-  return false;
-}
-
 // Check if obstacle is detected by IR sensor at specified digital pin
 // Returns true if digital reading indicates object within distance threshold
 bool canSeeAt(int pinNum)
@@ -130,14 +125,8 @@ void loop()
   // Priority 1: If enemy detected in center AND not on white line (or ignoring white)
   if (canSeeAt(centerIR))
   {
-    if (sprintOnceFoundEnemy)
-    {
-      sprint(); // Attack at high speed
-    }
-    else
-    {
-      forward(); // Attack at normal speed
-    }
+
+    forward(); // Attack at normal speed
   }
   // Priority 4: Enemy detected on left side
   else if (canSeeAt(leftIR))
