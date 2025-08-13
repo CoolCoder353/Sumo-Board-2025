@@ -40,6 +40,7 @@ CytronMD motorRight(PWM_DIR, 6, 7); // Right motor: PWM pin 6, DIR pin 7
 
 void setup()
 {
+  Serial.begin(9600);
   if (useFastPinWrites)
   {
     pinModeFast(leftIR, INPUT);
@@ -71,6 +72,7 @@ void setup()
 // Move forward at normal speed
 void forward()
 {
+  Serial.println("Moving Forward");
   motorLeft.setSpeed(forwardSpeed);
   motorRight.setSpeed(forwardSpeed);
 }
@@ -78,6 +80,7 @@ void forward()
 // Move backward at reduced speed
 void backward()
 {
+  Serial.println("Moving Backward");
   motorLeft.setSpeed(-backwardSpeed);
   motorRight.setSpeed(-backwardSpeed);
 }
@@ -87,12 +90,14 @@ void left()
 {
   if (hardTurn)
   {
+    Serial.println("Moving left hard turn");
     // Hard turn: left motor backward, right motor forward
     motorLeft.setSpeed(-turnSpeed);
     motorRight.setSpeed(turnSpeed);
   }
   else
   {
+    Serial.println("Moving left soft turn");
     // Soft turn: stop left motor, move right motor forward
     motorLeft.setSpeed(0);
     motorRight.setSpeed(turnSpeed);
@@ -104,12 +109,14 @@ void right()
 {
   if (hardTurn)
   {
+    Serial.println("Moving right hard turn");
     // Hard turn: left motor forward, right motor backward
     motorLeft.setSpeed(turnSpeed);
     motorRight.setSpeed(-turnSpeed);
   }
   else
   {
+    Serial.println("Moving right soft turn");
     // Soft turn: move left motor forward, stop right motor
     motorLeft.setSpeed(turnSpeed);
     motorRight.setSpeed(0);
@@ -119,6 +126,7 @@ void right()
 // Stop both motors
 void stop()
 {
+  Serial.println("Stopping Motors");
   motorLeft.setSpeed(0);
   motorRight.setSpeed(0);
 }
@@ -161,6 +169,7 @@ bool canSeeAt(int pinNum)
 // Move forward at high speed (sprint mode)
 void sprint()
 {
+  Serial.println("Sprinting Forward");
   motorLeft.setSpeed(sprintSpeed);
   motorRight.setSpeed(sprintSpeed);
 }
