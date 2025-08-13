@@ -3,26 +3,35 @@
 #include "digitalWriteFast.h"
 
 // IR sensor pins for obstacle detection
-int leftIR = 10;   // Left IR sensor pin
-int centerIR = 10; // Center IR sensor pin
-int rightIR = 10;  // Right IR sensor pin
-int backIR = 10;   // Back IR sensor pin (currently unused)
+const int leftIR = 10;   // Left IR sensor pin
+const int centerIR = 10; // Center IR sensor pin
+const int rightIR = 10;  // Right IR sensor pin
+const int backIR = 10;   // Back IR sensor pin (currently unused)
 
 // Color sensor pins for detecting white boundary lines
-int colorLeft = A0;  // Left color sensor (analog pin)
-int colorRight = A1; // Right color sensor (analog pin)
-
-float distanceThreshold = 100; // Digital threshold for IR obstacle detection
+const int colorLeft = A0;  // Left color sensor (analog pin)
+const int colorRight = A1; // Right color sensor (analog pin)
 
 // Motor speed settings (0-255 PWM values)
-float forwardSpeed = 50;  // Normal forward movement speed
-float backwardSpeed = 25; // Backward movement speed
-float turnSpeed = 20;     // Turning speed
-float sprintSpeed = 100;  // High speed when enemy is detected
+const float forwardSpeed = 50;  // Normal forward movement speed
+const float backwardSpeed = 25; // Backward movement speed
+const float turnSpeed = 20;     // Turning speed
+const float sprintSpeed = 100;  // High speed when enemy is detected
+
+// Sensor threshold values
+const float whiteThreshold = 200;    // Analog value threshold for detecting white surface
+const float distanceThreshold = 100; // Digital threshold for IR obstacle detection
 
 // Behavior control flags
-bool hardTurn = true; // Enable hard turns (both motors in opposite directions)
+const bool hardTurn = true;                  // Enable hard turns (both motors in opposite directions)
+const bool ignoreWhiteIfAttacking = true;    // Ignore white lines when enemy is detected
+const bool sprintOnceFoundEnemy = false;     // Use sprint speed when enemy is found
+const bool turnBackwardsWhenSeeWhite = true; // Back up before turning when white line detected
+const bool useFastPinWrites = true;
 
+// Timing values for movements (in milliseconds)
+const float turnTimeOnWhite = 10;     // Time to turn when white line detected
+const float backwardTimeOnWhite = 10; // Time to move backward when white line detected
 
 // Initialize motor driver objects using PWM_DIR mode
 // PWM_DIR mode uses separate pins for speed (PWM) and direction
@@ -31,16 +40,28 @@ CytronMD motorRight(PWM_DIR, 6, 7); // Right motor: PWM pin 6, DIR pin 7
 
 void setup()
 {
-  // Configure IR sensor pins as inputs
-  pinMode(leftIR, INPUT);
-  pinMode(centerIR, INPUT);
-  pinMode(rightIR, INPUT);
-  pinMode(backIR, INPUT);
+  if (useFastPinWrites)
+  {
+    pinModeFast(leftIR, INPUT);
+    pinModeFast(centerIR, INPUT);
+    pinModeFast(rightIR, INPUT);
+    pinModeFast(backIR, INPUT);
 
-  // Configure color sensor pins as inputs (analog pins don't need pinMode)
-  pinMode(colorLeft, INPUT);
-  pinMode(colorRight, INPUT);
+    pinModeFast(colorLeft, INPUT);
+    pinModeFast(colorRight, INPUT);
+  }
+  else
+  {
+    // Configure IR sensor pins as inputs
+    pinMode(leftIR, INPUT);
+    pinMode(centerIR, INPUT);
+    pinMode(rightIR, INPUT);
+    pinMode(backIR, INPUT);
 
+    // Configure color sensor pins as inputs (analog pins don't need pinMode)
+    pinMode(colorLeft, INPUT);
+    pinMode(colorRight, INPUT);
+  }
   // Wait 3 seconds before starting (sumo competition requirement)
   delay(3000);
 }
@@ -50,13 +71,15 @@ void setup()
 // Move forward at normal speed
 void forward()
 {
-  return;
+  motorLeft.setSpeed(forwardSpeed);
+  motorRight.setSpeed(forwardSpeed);
 }
 
 // Move backward at reduced speed
 void backward()
 {
-  return;
+  motorLeft.setSpeed(-backwardSpeed);
+  motorRight.setSpeed(-backwardSpeed);
 }
 
 // Turn left - either hard turn or soft turn based on hardTurn flag
@@ -102,13 +125,35 @@ void stop()
 
 // Sensor reading functions
 
+// Check if white surface is detected at specified analog pin
+// Returns true if analog reading is above white threshold
+bool isWhiteAt(int pinNum)
+{
+  if (analogRead(pinNum) >= whiteThreshold)
+  {
+    return true;
+  }
+
+  return false;
+}
+
 // Check if obstacle is detected by IR sensor at specified digital pin
 // Returns true if digital reading indicates object within distance threshold
 bool canSeeAt(int pinNum)
 {
-  if (digitalRead(pinNum) <= distanceThreshold)
+  if (useFastPinWrites)
   {
-    return true;
+    if (digitalReadFast(pinNum) <= distanceThreshold)
+    {
+      return true;
+    }
+  }
+  else
+  {
+    if (digitalRead(pinNum) <= distanceThreshold)
+    {
+      return true;
+    }
   }
   return false;
 }
@@ -127,22 +172,21 @@ void loop()
   // Priority 1: If enemy detected in center AND not on white line (or ignoring white)
   if (canSeeAt(centerIR))
   {
-
     stop(); // Stop turning if seen
   }
   // Priority 4: Enemy detected on left side
   else if (canSeeAt(leftIR))
   {
-    left();
+    right();
   }
   // Priority 5: Enemy detected on right side
   else if (canSeeAt(rightIR))
   {
-    right();
+    left();
   }
-  // Priority 6: Enemy detected behind us
-  else if (canSeeAt(backIR))
-  {
-    right();
-  }
+  // // Priority 6: Enemy detected behind us
+  // else if (canSeeAt(backIR))
+  // {
+  //   right();
+  // }
 }

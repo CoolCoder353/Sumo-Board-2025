@@ -23,8 +23,8 @@ const float whiteThreshold = 200;    // Analog value threshold for detecting whi
 const float distanceThreshold = 100; // Digital threshold for IR obstacle detection
 
 // Behavior control flags
-const bool hardTurn = false;                 // Enable hard turns (both motors in opposite directions)
-const bool ignoreWhiteIfAttacking = false;   // Ignore white lines when enemy is detected
+const bool hardTurn = true;                  // Enable hard turns (both motors in opposite directions)
+const bool ignoreWhiteIfAttacking = true;    // Ignore white lines when enemy is detected
 const bool sprintOnceFoundEnemy = false;     // Use sprint speed when enemy is found
 const bool turnBackwardsWhenSeeWhite = true; // Back up before turning when white line detected
 const bool useFastPinWrites = true;
