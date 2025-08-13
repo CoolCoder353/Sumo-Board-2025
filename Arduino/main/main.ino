@@ -143,7 +143,7 @@ bool canSeeAt(int pinNum)
 {
   if (useFastPinWrites)
   {
-    if (digitalWriteFast(pinNum) <= distanceThreshold)
+    if (digitalReadFast(pinNum) <= distanceThreshold)
     {
       return true;
     }
