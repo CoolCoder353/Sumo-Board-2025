@@ -1,6 +1,6 @@
 // Include the Cytron motor driver library for controlling DC motors
-#include <CytronMotorDriver.h>
-#include <digitalWriteFast.h>
+#include "CytronMotorDriver.h"
+#include "digitalWriteFast.h"
 
 // IR sensor pins for obstacle detection
 int leftIR = 10;   // Left IR sensor pin
@@ -21,7 +21,8 @@ float turnSpeed = 20;     // Turning speed
 float sprintSpeed = 100;  // High speed when enemy is detected
 
 // Behavior control flags
-bool hardTurn = false; // Enable hard turns (both motors in opposite directions)
+bool hardTurn = true; // Enable hard turns (both motors in opposite directions)
+
 
 // Initialize motor driver objects using PWM_DIR mode
 // PWM_DIR mode uses separate pins for speed (PWM) and direction
@@ -58,6 +59,10 @@ void backward()
   return;
 }
 
+void hardLeft()
+{
+
+}
 // Turn left - either hard turn or soft turn based on hardTurn flag
 void left()
 {
