@@ -13,14 +13,14 @@ const int colorLeft = A0;  // Left color sensor (analog pin)
 const int colorRight = A1; // Right color sensor (analog pin)
 
 // Motor speed settings (0-255 PWM values)
-const float forwardSpeed = 50;  // Normal forward movement speed
-const float backwardSpeed = 25; // Backward movement speed
-const float turnSpeed = 20;     // Turning speed
-const float sprintSpeed = 100;  // High speed when enemy is detected
+const int forwardSpeed = 50;  // Normal forward movement speed
+const int backwardSpeed = 25; // Backward movement speed
+const int turnSpeed = 20;     // Turning speed
+const int sprintSpeed = 100;  // High speed when enemy is detected
 
 // Sensor threshold values
-const float whiteThreshold = 200;    // Analog value threshold for detecting white surface
-const float distanceThreshold = 100; // Digital threshold for IR obstacle detection
+const int whiteThreshold = 200;    // Analog value threshold for detecting white surface
+const int distanceThreshold = 100; // Digital threshold for IR obstacle detection
 
 // Behavior control flags
 const bool hardTurn = true;                  // Enable hard turns (both motors in opposite directions)
@@ -30,8 +30,8 @@ const bool turnBackwardsWhenSeeWhite = true; // Back up before turning when whit
 const bool useFastPinWrites = true;
 
 // Timing values for movements (in milliseconds)
-const float turnTimeOnWhite = 10;     // Time to turn when white line detected
-const float backwardTimeOnWhite = 10; // Time to move backward when white line detected
+const int turnTimeOnWhite = 10;     // Time to turn when white line detected
+const int backwardTimeOnWhite = 10; // Time to move backward when white line detected
 
 // Initialize motor driver objects using PWM_DIR mode
 // PWM_DIR mode uses separate pins for speed (PWM) and direction
@@ -40,7 +40,6 @@ CytronMD motorRight(PWM_DIR, 6, 7); // Right motor: PWM pin 6, DIR pin 7
 
 void setup()
 {
-  Serial.begin(9600);
   if (useFastPinWrites)
   {
     pinModeFast(leftIR, INPUT);
@@ -72,7 +71,6 @@ void setup()
 // Move forward at normal speed
 void forward()
 {
-  Serial.println("Moving Forward");
   motorLeft.setSpeed(forwardSpeed);
   motorRight.setSpeed(forwardSpeed);
 }
@@ -80,7 +78,6 @@ void forward()
 // Move backward at reduced speed
 void backward()
 {
-  Serial.println("Moving Backward");
   motorLeft.setSpeed(-backwardSpeed);
   motorRight.setSpeed(-backwardSpeed);
 }
@@ -90,14 +87,12 @@ void left()
 {
   if (hardTurn)
   {
-    Serial.println("Moving left hard turn");
     // Hard turn: left motor backward, right motor forward
     motorLeft.setSpeed(-turnSpeed);
     motorRight.setSpeed(turnSpeed);
   }
   else
   {
-    Serial.println("Moving left soft turn");
     // Soft turn: stop left motor, move right motor forward
     motorLeft.setSpeed(0);
     motorRight.setSpeed(turnSpeed);
@@ -109,14 +104,12 @@ void right()
 {
   if (hardTurn)
   {
-    Serial.println("Moving right hard turn");
     // Hard turn: left motor forward, right motor backward
     motorLeft.setSpeed(turnSpeed);
     motorRight.setSpeed(-turnSpeed);
   }
   else
   {
-    Serial.println("Moving right soft turn");
     // Soft turn: move left motor forward, stop right motor
     motorLeft.setSpeed(turnSpeed);
     motorRight.setSpeed(0);
@@ -126,7 +119,6 @@ void right()
 // Stop both motors
 void stop()
 {
-  Serial.println("Stopping Motors");
   motorLeft.setSpeed(0);
   motorRight.setSpeed(0);
 }
@@ -169,7 +161,6 @@ bool canSeeAt(int pinNum)
 // Move forward at high speed (sprint mode)
 void sprint()
 {
-  Serial.println("Sprinting Forward");
   motorLeft.setSpeed(sprintSpeed);
   motorRight.setSpeed(sprintSpeed);
 }
