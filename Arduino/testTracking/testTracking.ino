@@ -59,10 +59,6 @@ void backward()
   return;
 }
 
-void hardLeft()
-{
-
-}
 // Turn left - either hard turn or soft turn based on hardTurn flag
 void left()
 {
@@ -132,7 +128,7 @@ void loop()
   if (canSeeAt(centerIR))
   {
 
-    forward(); // Attack at normal speed
+    stop(); // Stop turning if seen
   }
   // Priority 4: Enemy detected on left side
   else if (canSeeAt(leftIR))
@@ -141,6 +137,11 @@ void loop()
   }
   // Priority 5: Enemy detected on right side
   else if (canSeeAt(rightIR))
+  {
+    right();
+  }
+  // Priority 6: Enemy detected behind us
+  else if (canSeeAt(backIR))
   {
     right();
   }
