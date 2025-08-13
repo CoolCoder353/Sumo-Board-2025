@@ -40,6 +40,7 @@ CytronMD motorRight(PWM_DIR, 6, 7); // Right motor: PWM pin 6, DIR pin 7
 
 void setup()
 {
+  Serial.begin(9600);
   if (useFastPinWrites)
   {
     pinModeFast(leftIR, INPUT);
