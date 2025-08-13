@@ -3,9 +3,9 @@
 #include "digitalWriteFast.h"
 
 // IR sensor pins for obstacle detection
-const int leftIR = 10;   // Left IR sensor pin
-const int centerIR = 10; // Center IR sensor pin
-const int rightIR = 10;  // Right IR sensor pin
+const int leftIR = 11;   // Left IR sensor pin
+const int centerIR = 12; // Center IR sensor pin
+const int rightIR = 13;  // Right IR sensor pin
 const int backIR = 10;   // Back IR sensor pin (currently unused)
 
 // Color sensor pins for detecting white boundary lines
@@ -15,12 +15,12 @@ const int colorRight = A1; // Right color sensor (analog pin)
 // Motor speed settings (0-255 PWM values)
 const int forwardSpeed = 50;  // Normal forward movement speed
 const int backwardSpeed = 25; // Backward movement speed
-const int turnSpeed = 20;     // Turning speed
+const int turnSpeed = 150;    // Turning speed
 const int sprintSpeed = 100;  // High speed when enemy is detected
 
 // Sensor threshold values
-const int whiteThreshold = 200;    // Analog value threshold for detecting white surface
-const int distanceThreshold = 100; // Digital threshold for IR obstacle detection
+const int whiteThreshold = 200;  // Analog value threshold for detecting white surface
+const int distanceThreshold = 1; // Digital threshold for IR obstacle detection
 
 // Behavior control flags
 const bool hardTurn = true;                  // Enable hard turns (both motors in opposite directions)
@@ -151,14 +151,17 @@ bool canSeeAt(int pinNum)
 {
   if (useFastPinWrites)
   {
-    if (digitalReadFast(pinNum) <= distanceThreshold)
+    // Serial.print(pinNum);
+    // Serial.print(" : ");
+    // Serial.println(digitalReadFast(pinNum));
+    if (digitalReadFast(pinNum) < distanceThreshold)
     {
       return true;
     }
   }
   else
   {
-    if (digitalRead(pinNum) <= distanceThreshold)
+    if (digitalRead(pinNum) < distanceThreshold)
     {
       return true;
     }
