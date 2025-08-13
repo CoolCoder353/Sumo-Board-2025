@@ -177,12 +177,12 @@ void loop()
   // Priority 4: Enemy detected on left side
   else if (canSeeAt(leftIR))
   {
-    right();
+    left();
   }
   // Priority 5: Enemy detected on right side
   else if (canSeeAt(rightIR))
   {
-    left();
+    right();
   }
   // // Priority 6: Enemy detected behind us
   // else if (canSeeAt(backIR))
