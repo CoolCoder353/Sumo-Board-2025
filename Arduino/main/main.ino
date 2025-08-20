@@ -15,8 +15,8 @@ const int colorRight = A1; // Right color sensor (analog pin)
 // Motor speed settings (0-255 PWM values)
 const int forwardSpeed = 200;  // Normal forward movement speed
 const int backwardSpeed = 150; // Backward movement speed
-const int turnSpeed = 150;    // Turning speed
-const int sprintSpeed = 250;  // High speed when enemy is detected
+const int turnSpeed = 150;     // Turning speed
+const int sprintSpeed = 250;   // High speed when enemy is detected
 
 // Sensor threshold values
 const int whiteThreshold = 200;  // Analog value threshold for detecting white surface
@@ -25,9 +25,10 @@ const int distanceThreshold = 1; // Digital threshold for IR obstacle detection
 // Behavior control flags
 const bool hardTurn = true;                  // Enable hard turns (both motors in opposite directions)
 const bool ignoreWhiteIfAttacking = true;    // Ignore white lines when enemy is detected
-const bool sprintOnceFoundEnemy = true;     // Use sprint speed when enemy is found
+const bool sprintOnceFoundEnemy = true;      // Use sprint speed when enemy is found
 const bool turnBackwardsWhenSeeWhite = true; // Back up before turning when white line detected
 const bool useFastPinWrites = true;
+const bool debug = true;
 
 // Timing values for movements (in milliseconds)
 const int turnTimeOnWhite = 100;     // Time to turn when white line detected
@@ -137,6 +138,12 @@ void stop()
 // Returns true if analog reading is above white threshold
 bool isWhiteAt(int pinNum)
 {
+  if (debug)
+  {
+    Serial.print(pinNum);
+    Serial.print(" : ");
+    Serial.println(analogRead(pinNum));
+  }
   if (analogRead(pinNum) >= whiteThreshold)
   {
     return true;
