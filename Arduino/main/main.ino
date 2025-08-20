@@ -13,9 +13,9 @@ const int colorLeft = A0;  // Left color sensor (analog pin)
 const int colorRight = A1; // Right color sensor (analog pin)
 
 // Motor speed settings (0-255 PWM values)
-const int forwardSpeed = 255;  // Normal forward movement speed
-const int backwardSpeed = 150; // Backward movement speed
-const int turnSpeed = 200;     // Turning speed
+const int forwardSpeed = 180;  // Normal forward movement speed
+const int backwardSpeed = 55; // Backward movement speed
+const int turnSpeed = 75;     // Turning speed
 const int sprintSpeed = 255;   // High speed when enemy is detected
 
 // Sensor threshold values
@@ -31,7 +31,7 @@ const bool useFastPinWrites = true;
 const bool debug = false;
 
 // Timing values for movements (in milliseconds)
-const int turnTimeOnWhite = 250;     // Time to turn when white line detected
+const int turnTimeOnWhite = 400;     // Time to turn when white line detected
 const int backwardTimeOnWhite = 300; // Time to move backward when white line detected
 
 // Initialize motor driver objects using PWM_DIR mode
