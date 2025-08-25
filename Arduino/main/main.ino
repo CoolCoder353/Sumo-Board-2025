@@ -13,10 +13,10 @@ const int colorLeft = A0;  // Left color sensor (analog pin)
 const int colorRight = A1; // Right color sensor (analog pin)
 
 // Motor speed settings (0-255 PWM values)
-const int forwardSpeed = 180;  // Normal forward movement speed
+const int forwardSpeed = 180; // Normal forward movement speed
 const int backwardSpeed = 55; // Backward movement speed
 const int turnSpeed = 75;     // Turning speed
-const int sprintSpeed = 255;   // High speed when enemy is detected
+const int sprintSpeed = 255;  // High speed when enemy is detected
 
 // Sensor threshold values
 const int whiteThreshold = 500;  // Analog value threshold for detecting white surface
@@ -24,10 +24,11 @@ const int distanceThreshold = 1; // Digital threshold for IR obstacle detection
 
 // Behavior control flags
 const bool hardTurn = true;                  // Enable hard turns (both motors in opposite directions)
-const bool ignoreWhiteIfAttacking = false;    // Ignore white lines when enemy is detected
+const bool ignoreWhiteIfAttacking = false;   // Ignore white lines when enemy is detected
 const bool sprintOnceFoundEnemy = true;      // Use sprint speed when enemy is found
 const bool turnBackwardsWhenSeeWhite = true; // Back up before turning when white line detected
 const bool useFastPinWrites = true;
+const bool reverseIrOutput = false;
 const bool debug = false;
 
 // Timing values for movements (in milliseconds)
@@ -66,6 +67,9 @@ void setup()
   }
   // Wait 3 seconds before starting (sumo competition requirement)
   delay(3000);
+
+  forward();
+  delay(500);
 }
 
 // Movement functions
@@ -73,7 +77,7 @@ void setup()
 // Move forward at normal speed
 void forward()
 {
-  //Serial.println("Moving Forward");
+  // Serial.println("Moving Forward");
   motorLeft.setSpeed(forwardSpeed);
   motorRight.setSpeed(forwardSpeed);
 }
@@ -81,7 +85,7 @@ void forward()
 // Move backward at reduced speed
 void backward()
 {
-  ///Serial.println("Moving Backward");
+  /// Serial.println("Moving Backward");
   motorLeft.setSpeed(-backwardSpeed);
   motorRight.setSpeed(-backwardSpeed);
 }
@@ -91,14 +95,14 @@ void left()
 {
   if (hardTurn)
   {
-    ///Serial.println("Moving left hard turn");
+    /// Serial.println("Moving left hard turn");
     // Hard turn: left motor backward, right motor forward
     motorLeft.setSpeed(-turnSpeed);
     motorRight.setSpeed(turnSpeed);
   }
   else
   {
-    ///Serial.println("Moving left soft turn");
+    /// Serial.println("Moving left soft turn");
     // Soft turn: stop left motor, move right motor forward
     motorLeft.setSpeed(0);
     motorRight.setSpeed(turnSpeed);
@@ -110,14 +114,14 @@ void right()
 {
   if (hardTurn)
   {
-    ///Serial.println("Moving right hard turn");
+    /// Serial.println("Moving right hard turn");
     // Hard turn: left motor forward, right motor backward
     motorLeft.setSpeed(turnSpeed);
     motorRight.setSpeed(-turnSpeed);
   }
   else
   {
-    ///Serial.println("Moving right soft turn");
+    /// Serial.println("Moving right soft turn");
     // Soft turn: move left motor forward, stop right motor
     motorLeft.setSpeed(turnSpeed);
     motorRight.setSpeed(0);
@@ -127,7 +131,7 @@ void right()
 // Stop both motors
 void stop()
 {
-  ///Serial.println("Stopping Motors");
+  /// Serial.println("Stopping Motors");
   motorLeft.setSpeed(0);
   motorRight.setSpeed(0);
 }
@@ -163,23 +167,23 @@ bool canSeeAt(int pinNum)
     // Serial.println(digitalReadFast(pinNum));
     if (digitalReadFast(pinNum) < distanceThreshold)
     {
-      return true;
+      return reverseIrOutput ? false : true;
     }
   }
   else
   {
     if (digitalRead(pinNum) < distanceThreshold)
     {
-      return true;
+      return reverseIrOutput ? false : true;
     }
   }
-  return false;
+  return reverseIrOutput ? true : false;
 }
 
 // Move forward at high speed (sprint mode)
 void sprint()
 {
-  ///Serial.println("Sprinting Forward");
+  /// Serial.println("Sprinting Forward");
   motorLeft.setSpeed(sprintSpeed);
   motorRight.setSpeed(sprintSpeed);
 }
