@@ -14,9 +14,9 @@ const int colorRight = A1; // Right color sensor (analog pin)
 
 // Motor speed settings (0-255 PWM values)
 const int forwardSpeed = 180; // Normal forward movement speed
-const int backwardSpeed = 55; // Backward movement speed
-const int turnSpeed = 75;     // Turning speed
-const int sprintSpeed = 255;  // High speed when enemy is detected
+const int backwardSpeed = 50; // Backward movement speed
+const int turnSpeed = 100;    // Turning speed
+const int sprintSpeed = 190;  // High speed when enemy is detected
 
 // Sensor threshold values
 const int whiteThreshold = 500;  // Analog value threshold for detecting white surface
@@ -33,7 +33,7 @@ const bool debug = false;
 
 // Timing values for movements (in milliseconds)
 const int turnTimeOnWhite = 400;     // Time to turn when white line detected
-const int backwardTimeOnWhite = 300; // Time to move backward when white line detected
+const int backwardTimeOnWhite = 250; // Time to move backward when white line detected
 
 // Initialize motor driver objects using PWM_DIR mode
 // PWM_DIR mode uses separate pins for speed (PWM) and direction
@@ -68,8 +68,8 @@ void setup()
   // Wait 3 seconds before starting (sumo competition requirement)
   delay(3000);
 
-  forward();
-  delay(500);
+  sprint();
+  delay(100);
 }
 
 // Movement functions
